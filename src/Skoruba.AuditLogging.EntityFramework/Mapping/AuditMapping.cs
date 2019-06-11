@@ -1,5 +1,6 @@
 ﻿using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.Events;
+using Skoruba.AuditLogging.Helpers;
 
 namespace Skoruba.AuditLogging.EntityFramework.Mapping
 {
@@ -12,7 +13,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Mapping
                 SubjectIdentifier = auditEvent.SubjectIdentifier,
                 SubjectName = auditEvent.SubjectName,
                 Category = auditEvent.Category,
-                Data = auditEvent.Data
+                Data = LogSerializer.Serialize(auditEvent)
             };
             
             return auditLog;

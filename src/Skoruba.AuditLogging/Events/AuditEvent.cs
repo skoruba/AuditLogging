@@ -9,7 +9,5 @@
         public string SubjectIdentifier { get; set; }
 
         public string SubjectName { get; set; }
-
-        public string Data { get; set; }
     }
 }
