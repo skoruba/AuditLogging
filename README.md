@@ -6,7 +6,7 @@
 # How to install
 
 ```
-dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta1
+dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta1-update3
 ```
 
 # How to use
@@ -18,6 +18,60 @@ services.AddAuditLogging()
                     Configuration.GetConnectionString("MyConnectionString"),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
                 .AddDefaultAuditSink();
+```
+
+### Usage in code
+
+```
+await _auditLogger.LogAsync(new ProductAddedEvent
+            {
+                Category = nameof(ProductAddedEvent),
+                ProductDto = new ProductDto
+                {
+                    Name = "Coca Cola",
+                    Category = "Drink"                    
+                }
+            });
+```
+
+### Full sample
+
+**Startup.cs**:
+```
+var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IAuditCaller, AuditCaller>();
+
+            services.AddAuditLogging()
+                .AddDefaultStore(options => options.UseSqlServer(
+                    Configuration.GetConnectionString("ApplicationDbContext"),
+                    optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
+                .AddDefaultAuditSink();
+```
+
+**AuditCaller.cs**:
+```
+public class AuditCaller : IAuditCaller
+    {
+        public AuditCaller(IHttpContextAccessor accessor)
+        {
+            SubjectIdentifier = accessor.HttpContext.User.FindFirst("sub")?.Value;
+            SubjectName = accessor.HttpContext.User.FindFirst("name")?.Value;
+        }
+
+        public string SubjectName { get; set; }
+
+        public string SubjectIdentifier { get; set; }
+    }
+```
+
+**ProductAddedEvent.cs**
+```
+public class ProductAddedEvent : AuditEvent
+    {
+        public ProductDto ProductDto { get; set; }  
+    }
 ```
 
 # Acknowledgements
