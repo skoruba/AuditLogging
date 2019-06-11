@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
@@ -33,10 +34,11 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// Add default DbContext and Repository
         /// </summary>
         /// <param name="builder"></param>
+        /// <param name="dbContextOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddDefaultStore(this IAuditLoggingBuilder builder)
+        public static IAuditLoggingBuilder AddDefaultStore(this IAuditLoggingBuilder builder, Action<DbContextOptionsBuilder> dbContextOptions)
         {
-            builder.AddStore<AuditLoggingDbContext, AuditLoggingRepository>();
+            builder.AddStore<AuditLoggingDbContext, AuditLoggingRepository>(dbContextOptions);
 
             return builder;
         }
@@ -47,11 +49,12 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <typeparam name="TDbContext"></typeparam>
         /// <typeparam name="TAuditLoggingRepository"></typeparam>
         /// <param name="builder"></param>
+        /// <param name="dbContextOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddStore<TDbContext, TAuditLoggingRepository>(this IAuditLoggingBuilder builder)
+        public static IAuditLoggingBuilder AddStore<TDbContext, TAuditLoggingRepository>(this IAuditLoggingBuilder builder, Action<DbContextOptionsBuilder> dbContextOptions)
             where TDbContext : DbContext, IAuditLoggingDbContext where TAuditLoggingRepository : class, IAuditLoggingRepository
         {
-            builder.Services.AddDbContext<IAuditLoggingDbContext, TDbContext>();
+            builder.Services.AddDbContext<IAuditLoggingDbContext, TDbContext>(dbContextOptions);
             builder.Services.AddTransient<IAuditLoggingRepository, TAuditLoggingRepository>();
 
             return builder;
