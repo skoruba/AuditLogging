@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skoruba.AuditLogging", "Skoruba.AuditLogging\Skoruba.AuditLogging.csproj", "{FF6E5161-2B2F-45A7-BC99-059F4481FFF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skoruba.AuditLogging.EntityFramework", "Skoruba.AuditLogging.EntityFramework\Skoruba.AuditLogging.EntityFramework.csproj", "{1F45D18F-D04A-48DF-974A-895C0263926A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF6E5161-2B2F-45A7-BC99-059F4481FFF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6E5161-2B2F-45A7-BC99-059F4481FFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6E5161-2B2F-45A7-BC99-059F4481FFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6E5161-2B2F-45A7-BC99-059F4481FFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F45D18F-D04A-48DF-974A-895C0263926A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F45D18F-D04A-48DF-974A-895C0263926A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F45D18F-D04A-48DF-974A-895C0263926A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F45D18F-D04A-48DF-974A-895C0263926A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF7B00EF-1390-47B3-9249-815FE87DC009}
+	EndGlobalSection
+EndGlobal
