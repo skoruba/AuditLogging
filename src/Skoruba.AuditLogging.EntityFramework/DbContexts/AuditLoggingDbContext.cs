@@ -6,6 +6,12 @@ namespace Skoruba.AuditLogging.EntityFramework.DbContexts
 {
     public class AuditLoggingDbContext : DbContext, IAuditLoggingDbContext
     {
+        public AuditLoggingDbContext(DbContextOptions<AuditLoggingDbContext> dbContextOptions)
+            : base(dbContextOptions)
+        {
+
+        }
+
         public DbSet<AuditLog> AuditLog { get; set; }
 
         public Task<int> SaveChangesAsync()
