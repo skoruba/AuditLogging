@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Formatting = Newtonsoft.Json.Formatting;
 
-namespace Skoruba.AuditLogging.Helpers
+namespace Skoruba.AuditLogging.Helpers.JsonHelpers
 {
     /// <summary>
-    /// Helper to JSON serialize object data for logging.
+    /// Helper to JSON serialize object data for audit logging.
     /// </summary>
-    public static class LogSerializer
+    public static class AuditLogSerializer
     {
         private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
         {
@@ -22,13 +22,14 @@ namespace Skoruba.AuditLogging.Helpers
             Formatting = Formatting.Indented
         };
 
-        static LogSerializer()
+        static AuditLogSerializer()
         {
             JsonSettings.Converters.Add(new StringEnumConverter());
+            JsonSettings.ContractResolver = new AuditLoggerContractResolver();
         }
 
         /// <summary>
-        /// Serializes the specified object.
+        /// Serializes the audit event object.
         /// </summary>
         /// <param name="logObject">The object.</param>
         /// <returns></returns>

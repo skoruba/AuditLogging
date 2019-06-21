@@ -1,19 +1,20 @@
 ﻿using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.Events;
-using Skoruba.AuditLogging.Helpers;
+using Skoruba.AuditLogging.Helpers.JsonHelpers;
 
 namespace Skoruba.AuditLogging.EntityFramework.Mapping
 {
     public static class AuditMapping
     {
-        public static AuditLog MapToEntity(this AuditEvent auditEvent)
+        public static TAuditLog MapToEntity<TAuditLog>(this AuditEvent auditEvent)
+        where TAuditLog : AuditLog, new()
         {
-            var auditLog = new AuditLog
+            var auditLog = new TAuditLog
             {
                 SubjectIdentifier = auditEvent.SubjectIdentifier,
                 SubjectName = auditEvent.SubjectName,
                 Category = auditEvent.Category,
-                Data = LogSerializer.Serialize(auditEvent)
+                Data = AuditLogSerializer.Serialize(auditEvent)
             };
             
             return auditLog;

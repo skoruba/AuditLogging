@@ -7,18 +7,20 @@ using Skoruba.AuditLogging.EntityFramework.Helpers.Common;
 
 namespace Skoruba.AuditLogging.EntityFramework.Repositories
 {
-    public class AuditLoggingRepository : IAuditLoggingRepository
+    public class AuditLoggingRepository<TDbContext, TAuditLog> : IAuditLoggingRepository<TAuditLog>
+    where TDbContext : IAuditLoggingDbContext<TAuditLog> 
+    where TAuditLog : AuditLog
     {
-        protected IAuditLoggingDbContext DbContext;
+        protected TDbContext DbContext;
 
-        public AuditLoggingRepository(IAuditLoggingDbContext dbContext)
+        public AuditLoggingRepository(TDbContext dbContext)
         {
             DbContext = dbContext;
         }
 
-        public async Task<PagedList<AuditLog>> GetAsync(int page = 1, int pageSize = 10)
+        public async Task<PagedList<TAuditLog>> GetAsync(int page = 1, int pageSize = 10)
         {
-            var pagedList = new PagedList<AuditLog>();
+            var pagedList = new PagedList<TAuditLog>();
 
             var auditLogs = await DbContext.AuditLog
                 .PageBy(x => x.Id, page, pageSize)
@@ -32,12 +34,12 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             return pagedList;
         }
 
-        public async Task<PagedList<AuditLog>> GetAsync(string subjectIdentifier, string subjectName, string category, int page = 1, int pageSize = 10)
+        public async Task<PagedList<TAuditLog>> GetAsync(string subjectIdentifier, string subjectName, string category, int page = 1, int pageSize = 10)
         {
-            var pagedList = new PagedList<AuditLog>();
+            var pagedList = new PagedList<TAuditLog>();
 
             var auditLogs = await DbContext.AuditLog
-                .WhereIf(!string.IsNullOrWhiteSpace(subjectIdentifier), x=> x.SubjectIdentifier == subjectIdentifier)
+                .WhereIf(!string.IsNullOrWhiteSpace(subjectIdentifier), x => x.SubjectIdentifier == subjectIdentifier)
                 .WhereIf(!string.IsNullOrWhiteSpace(subjectName), x => x.SubjectName == subjectName)
                 .WhereIf(!string.IsNullOrWhiteSpace(category), x => x.Category == category)
                 .PageBy(x => x.Id, page, pageSize)
@@ -51,7 +53,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             return pagedList;
         }
 
-        public async Task SaveAsync(AuditLog auditLog)
+        public async Task SaveAsync(TAuditLog auditLog)
         {
             await DbContext.AuditLog.AddAsync(auditLog);
             await DbContext.SaveChangesAsync();

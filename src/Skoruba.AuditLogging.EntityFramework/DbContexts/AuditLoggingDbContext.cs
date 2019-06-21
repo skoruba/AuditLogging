@@ -4,15 +4,17 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 
 namespace Skoruba.AuditLogging.EntityFramework.DbContexts
 {
-    public class AuditLoggingDbContext : DbContext, IAuditLoggingDbContext
+    public class AuditLoggingDbContext<TAuditLog> : DbContext, IAuditLoggingDbContext<TAuditLog> 
+        where TAuditLog : AuditLog
+
     {
-        public AuditLoggingDbContext(DbContextOptions<AuditLoggingDbContext> dbContextOptions)
+        public AuditLoggingDbContext(DbContextOptions<AuditLoggingDbContext<TAuditLog>> dbContextOptions)
             : base(dbContextOptions)
         {
 
         }
 
-        public DbSet<AuditLog> AuditLog { get; set; }
+        public DbSet<TAuditLog> AuditLog { get; set; }
 
         public Task<int> SaveChangesAsync()
         {

@@ -5,6 +5,12 @@ namespace Skoruba.AuditLogging.Services
 {
     public interface IAuditLogger
     {
-        Task LogAsync(AuditEvent auditEvent);
+        /// <summary>
+        /// Log an event
+        /// </summary>
+        /// <param name="auditEvent"></param>
+        /// <param name="useDefaultAuditCaller"></param>
+        /// <returns></returns>
+        Task LogAsync(AuditEvent auditEvent, bool useDefaultAuditCaller = true);
     }
 }

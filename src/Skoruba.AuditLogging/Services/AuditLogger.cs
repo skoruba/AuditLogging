@@ -8,6 +8,7 @@ namespace Skoruba.AuditLogging.Services
     {
         private readonly IEnumerable<IAuditLoggerSink> _sinks;
         private readonly IAuditCaller _auditCaller;
+        private bool UseDefaultAuditCaller { get; set; } = true;
 
         public AuditLogger(IEnumerable<IAuditLoggerSink> sinks, IAuditCaller auditCaller)
         {
@@ -17,14 +18,19 @@ namespace Skoruba.AuditLogging.Services
 
         protected virtual Task PrepareEventAsync(AuditEvent auditEvent)
         {
-            auditEvent.SubjectIdentifier = _auditCaller.SubjectIdentifier;
-            auditEvent.SubjectName = _auditCaller.SubjectName;
+            if (UseDefaultAuditCaller)
+            {
+                auditEvent.SubjectIdentifier = _auditCaller.SubjectIdentifier;
+                auditEvent.SubjectName = _auditCaller.SubjectName;
+            }
 
             return Task.CompletedTask;
         }
 
-        public virtual async Task LogAsync(AuditEvent auditEvent)
+        public virtual async Task LogAsync(AuditEvent auditEvent, bool useDefaultAuditCaller = true)
         {
+            UseDefaultAuditCaller = useDefaultAuditCaller;
+
             await PrepareEventAsync(auditEvent);
 
             foreach (var sink in _sinks)
