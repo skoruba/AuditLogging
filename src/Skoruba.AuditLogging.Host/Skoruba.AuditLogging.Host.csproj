@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Skoruba.AuditLogging.EntityFramework\Skoruba.AuditLogging.EntityFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

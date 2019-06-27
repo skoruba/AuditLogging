@@ -13,10 +13,13 @@ namespace Skoruba.AuditLogging.EntityFramework.Mapping
             {
                 SubjectIdentifier = auditEvent.SubjectIdentifier,
                 SubjectName = auditEvent.SubjectName,
+                SubjectType = auditEvent.SubjectType,
                 Category = auditEvent.Category,
-                Data = AuditLogSerializer.Serialize(auditEvent)
+                Data = AuditLogSerializer.Serialize(auditEvent, AuditLogSerializer.BaseAuditEventJsonSettings),
+                Action = auditEvent.Action == null ? null : AuditLogSerializer.Serialize(auditEvent.Action),
+                SubjectAdditionalData = auditEvent.SubjectAdditionalData == null ? null : AuditLogSerializer.Serialize(auditEvent.SubjectAdditionalData)
             };
-            
+
             return auditLog;
         }
     }

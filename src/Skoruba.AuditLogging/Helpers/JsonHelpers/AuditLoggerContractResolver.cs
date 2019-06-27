@@ -17,8 +17,9 @@ namespace Skoruba.AuditLogging.Helpers.JsonHelpers
         {
             var property = base.CreateProperty(member, memberSerialization);
             if (typeof(AuditEvent).IsAssignableFrom(member.DeclaringType) 
-                && (member.Name == nameof(AuditEvent.Id)
-                    || member.Name == nameof(AuditEvent.Category)
+                && (member.Name == nameof(AuditEvent.Category)
+                    || member.Name == nameof(AuditEvent.SubjectAdditionalData)
+                    || member.Name == nameof(AuditEvent.Action)
                     || member.Name == nameof(AuditEvent.SubjectIdentifier)
                     || member.Name == nameof(AuditEvent.SubjectName)))
             {

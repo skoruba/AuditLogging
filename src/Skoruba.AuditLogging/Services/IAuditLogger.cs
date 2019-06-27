@@ -8,9 +8,10 @@ namespace Skoruba.AuditLogging.Services
         /// <summary>
         /// Log an event
         /// </summary>
-        /// <param name="auditEvent"></param>
-        /// <param name="useDefaultAuditCaller"></param>
+        /// <param name="auditEvent">The specific audit event</param>
+        /// <param name="useDefaultSubject">Get default subject from IAuditSubject</param>
+        /// <param name="useDefaultAction">Get default subject from IAuditAction</param>
         /// <returns></returns>
-        Task LogAsync(AuditEvent auditEvent, bool useDefaultAuditCaller = true);
+        Task LogAsync(AuditEvent auditEvent, bool useDefaultSubject = true, bool useDefaultAction = true);
     }
 }

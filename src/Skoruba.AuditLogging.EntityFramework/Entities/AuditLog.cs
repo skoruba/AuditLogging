@@ -25,6 +25,21 @@ namespace Skoruba.AuditLogging.EntityFramework.Entities
         public string SubjectName { get; set; }
 
         /// <summary>
+        /// Subject Type - User/Machine
+        /// </summary>
+        public string SubjectType { get; set; }
+
+        /// <summary>
+        /// Subject - some additional data
+        /// </summary>
+        public string SubjectAdditionalData { get; set; }
+
+        /// <summary>
+        /// Information about request/action
+        /// </summary>
+        public string Action { get; set; }
+
+        /// <summary>
         /// Data which are serialized into JSON format
         /// </summary>
         public string Data { get; set; }

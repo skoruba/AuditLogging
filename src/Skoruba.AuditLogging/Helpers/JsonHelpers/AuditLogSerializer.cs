@@ -15,7 +15,14 @@ namespace Skoruba.AuditLogging.Helpers.JsonHelpers
     /// </summary>
     public static class AuditLogSerializer
     {
-        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings DefaultAuditJsonSettings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            DateFormatHandling = DateFormatHandling.IsoDateFormat,
+            Formatting = Formatting.Indented
+        };
+
+        public static readonly JsonSerializerSettings BaseAuditEventJsonSettings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -24,8 +31,9 @@ namespace Skoruba.AuditLogging.Helpers.JsonHelpers
 
         static AuditLogSerializer()
         {
-            JsonSettings.Converters.Add(new StringEnumConverter());
-            JsonSettings.ContractResolver = new AuditLoggerContractResolver();
+            DefaultAuditJsonSettings.Converters.Add(new StringEnumConverter());
+            BaseAuditEventJsonSettings.Converters.Add(new StringEnumConverter());
+            BaseAuditEventJsonSettings.ContractResolver = new AuditLoggerContractResolver();
         }
 
         /// <summary>
@@ -35,7 +43,18 @@ namespace Skoruba.AuditLogging.Helpers.JsonHelpers
         /// <returns></returns>
         public static string Serialize(object logObject)
         {
-            return JsonConvert.SerializeObject(logObject, JsonSettings);
+            return JsonConvert.SerializeObject(logObject, DefaultAuditJsonSettings);
+        }
+
+        /// <summary>
+        /// Serializes the audit event object.
+        /// </summary>
+        /// <param name="logObject">The object.</param>
+        /// <param name="settings"></param>
+        /// <returns></returns>
+        public static string Serialize(object logObject, JsonSerializerSettings settings)
+        {
+            return JsonConvert.SerializeObject(logObject, settings);
         }
     }
 }

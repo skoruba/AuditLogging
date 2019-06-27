@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Skoruba.AuditLogging.Host.Consts;
 using Skoruba.AuditLogging.Host.Dtos;
 using Skoruba.AuditLogging.Host.Events;
 using Skoruba.AuditLogging.Services;
@@ -32,17 +33,24 @@ namespace Skoruba.AuditLogging.Host.Controllers
             };
 
             // Log this action
-            var productGetEvent = new ProductGetEvent
+            var productGetUserEvent = new ProductGetEvent
             {
                 Category = nameof(ProductGetEvent),
-                SubjectIdentifier = Guid.NewGuid().ToString(),
-                SubjectName = Guid.NewGuid().ToString(),
                 Product = productDto
             };
 
-            await _auditLogger.LogAsync(productGetEvent, false);
+            var productGetMachineEvent = new ProductGetEvent
+            {
+                Category = nameof(ProductGetEvent),
+                Product = productDto,
+                SubjectType = AuditSubjectTypes.Machine,
+                SubjectName = Environment.MachineName,
+                SubjectIdentifier = Environment.MachineName,
+                Action = new { Method = nameof(Get), Class = nameof(AuditController) }
+            };
 
-            await _auditLogger.LogAsync(productGetEvent, true);
+            await _auditLogger.LogAsync(productGetMachineEvent, false, false);
+            await _auditLogger.LogAsync(productGetUserEvent);
 
             return Ok(productDto);
         }

@@ -42,7 +42,8 @@ namespace Skoruba.AuditLogging.Host
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IAuditCaller, AuditCaller>();
+            services.AddTransient<IAuditSubject, AuditSubject>();
+            services.AddTransient<IAuditAction, AuditAction>();
 
             services.AddAuditLogging()
                 .AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),

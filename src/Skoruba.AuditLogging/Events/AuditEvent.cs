@@ -1,15 +1,12 @@
-﻿namespace Skoruba.AuditLogging.Events
+﻿using System.Threading.Tasks;
+
+namespace Skoruba.AuditLogging.Events
 {
     /// <summary>
     /// Default audit event for logging
     /// </summary>
     public abstract class AuditEvent
     {
-        /// <summary>
-        /// Unique identifier for the event
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Event category
         /// </summary>
@@ -24,5 +21,20 @@
         /// Name of caller which is responsible for the event
         /// </summary>
         public string SubjectName { get; set; }
+
+        /// <summary>
+        /// Subject Type - User/Machine
+        /// </summary>
+        public string SubjectType { get; set; }
+
+        /// <summary>
+        /// Subject - some additional data
+        /// </summary>
+        public object SubjectAdditionalData { get; set; }
+
+        /// <summary>
+        /// Information about request/action
+        /// </summary>
+        public object Action { get; set; }
     }
 }
