@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Skoruba.AuditLogging.Host.Consts;
 using Skoruba.AuditLogging.Host.Dtos;
 using Skoruba.AuditLogging.Host.Events;
@@ -14,11 +15,13 @@ namespace Skoruba.AuditLogging.Host.Controllers
     [ApiController]
     public class AuditController : ControllerBase
     {
-        private readonly IAuditLogger _auditLogger;
+        private readonly IAuditEventLogger _auditEventLogger;
+        private readonly ILogger<AuditController> _logger;
 
-        public AuditController(IAuditLogger auditLogger)
+        public AuditController(IAuditEventLogger auditEventLogger, ILogger<AuditController> logger)
         {
-            _auditLogger = auditLogger;
+            _auditEventLogger = auditEventLogger;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -49,8 +52,12 @@ namespace Skoruba.AuditLogging.Host.Controllers
                 Action = new { Method = nameof(Get), Class = nameof(AuditController) }
             };
 
-            await _auditLogger.LogAsync(productGetMachineEvent, false, false);
-            await _auditLogger.LogAsync(productGetUserEvent);
+            await _auditEventLogger.LogEventAsync(productGetMachineEvent, options =>
+                {
+                    options.UseDefaultSubject = false;
+                });
+
+            await _auditEventLogger.LogEventAsync(productGetUserEvent);
 
             return Ok(productDto);
         }

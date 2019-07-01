@@ -8,12 +8,12 @@ using Skoruba.AuditLogging.Services;
 
 namespace Skoruba.AuditLogging.EntityFramework.Services
 {
-    public class DatabaseAuditLoggerSink<TAuditLog> : IAuditLoggerSink 
+    public class DatabaseAuditEventLoggerSink<TAuditLog> : IAuditEventLoggerSink 
         where TAuditLog : AuditLog, new()
     {
         private readonly IAuditLoggingRepository<TAuditLog> _auditLoggingRepository;
 
-        public DatabaseAuditLoggerSink(IAuditLoggingRepository<TAuditLog> auditLoggingRepository)
+        public DatabaseAuditEventLoggerSink(IAuditLoggingRepository<TAuditLog> auditLoggingRepository)
         {
             _auditLoggingRepository = auditLoggingRepository;
         }

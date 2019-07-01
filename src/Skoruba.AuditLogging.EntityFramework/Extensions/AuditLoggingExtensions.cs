@@ -26,7 +26,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         {
             var builder = service.AddAuditLoggingBuilder();
 
-            builder.Services.AddTransient<IAuditLogger, AuditLogger>();
+            builder.Services.AddTransient<IAuditEventLogger, AuditEventLogger>();
 
             return builder;
         }
@@ -69,150 +69,150 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <returns></returns>
         public static IAuditLoggingBuilder AddDefaultAuditSink(this IAuditLoggingBuilder builder)
         {
-            builder.AddAuditSinks<DatabaseAuditLoggerSink<AuditLog>>();
+            builder.AddAuditSinks<DatabaseAuditEventLoggerSink<AuditLog>>();
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>()
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2, T3>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
-            where T3 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
+            where T3 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T3>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>()
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2, T3, T4>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
-            where T3 : class, IAuditLoggerSink
-            where T4 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
+            where T3 : class, IAuditEventLoggerSink
+            where T4 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T3>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T4>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>()
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2, T3, T4, T5>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
-            where T3 : class, IAuditLoggerSink
-            where T4 : class, IAuditLoggerSink
-            where T5 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
+            where T3 : class, IAuditEventLoggerSink
+            where T4 : class, IAuditEventLoggerSink
+            where T5 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T3>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T4>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T5>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>()
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2, T3, T4, T5, T6>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
-            where T3 : class, IAuditLoggerSink
-            where T4 : class, IAuditLoggerSink
-            where T5 : class, IAuditLoggerSink
-            where T6 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
+            where T3 : class, IAuditEventLoggerSink
+            where T4 : class, IAuditEventLoggerSink
+            where T5 : class, IAuditEventLoggerSink
+            where T6 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T3>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T4>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T5>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T6>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T6>()
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2, T3, T4, T5, T6, T7>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
-            where T3 : class, IAuditLoggerSink
-            where T4 : class, IAuditLoggerSink
-            where T5 : class, IAuditLoggerSink
-            where T6 : class, IAuditLoggerSink
-            where T7 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
+            where T3 : class, IAuditEventLoggerSink
+            where T4 : class, IAuditEventLoggerSink
+            where T5 : class, IAuditEventLoggerSink
+            where T6 : class, IAuditEventLoggerSink
+            where T7 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T3>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T4>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T5>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T6>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T7>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T6>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T7>()
             });
 
             return builder;
         }
 
         public static IAuditLoggingBuilder AddAuditSinks<T1, T2, T3, T4, T5, T6, T7, T8>(this IAuditLoggingBuilder builder)
-            where T1 : class, IAuditLoggerSink
-            where T2 : class, IAuditLoggerSink
-            where T3 : class, IAuditLoggerSink
-            where T4 : class, IAuditLoggerSink
-            where T5 : class, IAuditLoggerSink
-            where T6 : class, IAuditLoggerSink
-            where T7 : class, IAuditLoggerSink
-            where T8 : class, IAuditLoggerSink
+            where T1 : class, IAuditEventLoggerSink
+            where T2 : class, IAuditEventLoggerSink
+            where T3 : class, IAuditEventLoggerSink
+            where T4 : class, IAuditEventLoggerSink
+            where T5 : class, IAuditEventLoggerSink
+            where T6 : class, IAuditEventLoggerSink
+            where T7 : class, IAuditEventLoggerSink
+            where T8 : class, IAuditEventLoggerSink
         {
             builder.Services.TryAddEnumerable(new ServiceDescriptor[]
             {
-                ServiceDescriptor.Transient<IAuditLoggerSink, T1>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T2>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T3>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T4>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T5>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T6>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T7>(),
-                ServiceDescriptor.Transient<IAuditLoggerSink, T8>()
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T6>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T7>(),
+                ServiceDescriptor.Transient<IAuditEventLoggerSink, T8>()
             });
 
             return builder;

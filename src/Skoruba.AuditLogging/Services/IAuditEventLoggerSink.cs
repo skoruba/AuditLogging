@@ -3,7 +3,7 @@ using Skoruba.AuditLogging.Events;
 
 namespace Skoruba.AuditLogging.Services
 {
-    public interface IAuditLoggerSink
+    public interface IAuditEventLoggerSink
     {
         Task PersistAsync(AuditEvent auditEvent);
     }
