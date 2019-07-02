@@ -115,6 +115,10 @@ public class AuditHttpSubject : IAuditSubject
         public string SubjectIdentifier { get; set; }
     }
 ```
+
+# Example
+- Please, check out the project Skoruba.AuditLogging.Host - which contains example with Asp.Net Core API - with fake authentication for testing purpose only. 😊
+
 # Licence
 This repository is licensed under the terms of the MIT license.
 
