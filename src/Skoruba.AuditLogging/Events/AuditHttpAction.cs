@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-using Skoruba.AuditLogging.Events;
 using Skoruba.AuditLogging.Helpers.HttpContextHelpers;
 
-namespace Skoruba.AuditLogging.Host.Logging
+namespace Skoruba.AuditLogging.Events
 {
-    public class AuditAction : IAuditAction
+    public class AuditHttpAction : IAuditAction
     {
-        public AuditAction(IHttpContextAccessor accessor)
+        public AuditHttpAction(IHttpContextAccessor accessor)
         {
             Action = new
             {

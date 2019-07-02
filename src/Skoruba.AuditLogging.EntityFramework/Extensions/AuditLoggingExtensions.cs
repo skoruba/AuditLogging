@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
+using Skoruba.AuditLogging.Events;
 using Skoruba.AuditLogging.Services;
 
 namespace Skoruba.AuditLogging.EntityFramework.Extensions
@@ -21,12 +23,42 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// Add audit logging middleware
         /// </summary>
         /// <param name="service"></param>
+        /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddAuditLogging(this IServiceCollection service)
+        public static IAuditLoggingBuilder AddAuditLogging<TAuditLoggerOptions>(this IServiceCollection service, Action<TAuditLoggerOptions> loggerOptions)
+        where TAuditLoggerOptions : AuditLoggerOptions, new()
         {
             var builder = service.AddAuditLoggingBuilder();
 
+            var auditLoggerOptions = new TAuditLoggerOptions();
+            loggerOptions?.Invoke(auditLoggerOptions);
+
             builder.Services.AddTransient<IAuditEventLogger, AuditEventLogger>();
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Add audit logging middleware
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="loggerOptions"></param>
+        /// <returns></returns>
+        public static IAuditLoggingBuilder AddAuditLogging(this IServiceCollection service,
+            Action<AuditLoggerOptions> loggerOptions)
+        {
+            return service.AddAuditLogging<AuditLoggerOptions>(loggerOptions);
+        }
+
+        /// <summary>
+        /// Add audit default data - subject and action
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public static IAuditLoggingBuilder AddDefaultEventData(this IAuditLoggingBuilder builder)
+        {
+            builder.Services.AddTransient<IAuditSubject, AuditHttpSubject>();
+            builder.Services.AddTransient<IAuditAction, AuditHttpAction>();
 
             return builder;
         }

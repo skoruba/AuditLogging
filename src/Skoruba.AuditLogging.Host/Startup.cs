@@ -13,7 +13,6 @@ using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.Events;
 using Skoruba.AuditLogging.Host.Consts;
 using Skoruba.AuditLogging.Host.Helpers.Authentication;
-using Skoruba.AuditLogging.Host.Logging;
 
 namespace Skoruba.AuditLogging.Host
 {
@@ -42,10 +41,13 @@ namespace Skoruba.AuditLogging.Host
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IAuditSubject, AuditSubject>();
-            services.AddTransient<IAuditAction, AuditAction>();
 
-            services.AddAuditLogging()
+            services.AddAuditLogging(options =>
+                {
+                    options.UseDefaultAction = true;
+                    options.UseDefaultSubject = true;
+                })
+                .AddDefaultEventData()
                 .AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
                 .AddDefaultAuditSink();

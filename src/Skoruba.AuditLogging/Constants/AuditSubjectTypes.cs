@@ -1,4 +1,4 @@
-﻿namespace Skoruba.AuditLogging.Host.Consts
+﻿namespace Skoruba.AuditLogging.Constants
 {
     public class AuditSubjectTypes
     {

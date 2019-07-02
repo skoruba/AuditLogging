@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Skoruba.AuditLogging.Host.Consts;
+using Skoruba.AuditLogging.Constants;
 using Skoruba.AuditLogging.Host.Dtos;
 using Skoruba.AuditLogging.Host.Events;
 using Skoruba.AuditLogging.Services;

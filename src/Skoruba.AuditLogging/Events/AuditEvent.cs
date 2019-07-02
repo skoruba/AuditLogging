@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Skoruba.AuditLogging.Events
+﻿namespace Skoruba.AuditLogging.Events
 {
     /// <summary>
     /// Default audit event for logging
