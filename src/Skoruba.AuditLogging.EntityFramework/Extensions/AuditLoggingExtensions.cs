@@ -26,7 +26,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <param name="service"></param>
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddAuditLogging<TAuditLoggerOptions>(this IServiceCollection service, Action<TAuditLoggerOptions> loggerOptions)
+        public static IAuditLoggingBuilder AddAuditLogging<TAuditLoggerOptions>(this IServiceCollection service, Action<TAuditLoggerOptions> loggerOptions = default)
         where TAuditLoggerOptions : AuditLoggerOptions, new()
         {
             var builder = service.AddAuditLoggingBuilder();
@@ -47,7 +47,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
         public static IAuditLoggingBuilder AddAuditLogging(this IServiceCollection service,
-            Action<AuditLoggerOptions> loggerOptions)
+            Action<AuditLoggerOptions> loggerOptions = default)
         {
             return service.AddAuditLogging<AuditLoggerOptions>(loggerOptions);
         }
@@ -56,9 +56,15 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// Add audit default data - subject and action
         /// </summary>
         /// <param name="builder"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddDefaultEventData(this IAuditLoggingBuilder builder)
+        public static IAuditLoggingBuilder AddDefaultHttpEventData(this IAuditLoggingBuilder builder, Action<AuditHttpSubjectOptions> options = default)
         {
+            var auditHttpSubjectOptions = new AuditHttpSubjectOptions();
+            options?.Invoke(auditHttpSubjectOptions);
+
+            builder.Services.AddSingleton(auditHttpSubjectOptions);
+
             builder.Services.AddTransient<IAuditSubject, AuditHttpSubject>();
             builder.Services.AddTransient<IAuditAction, AuditHttpAction>();
 

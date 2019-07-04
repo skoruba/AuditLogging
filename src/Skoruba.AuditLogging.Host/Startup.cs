@@ -42,12 +42,8 @@ namespace Skoruba.AuditLogging.Host
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddAuditLogging(options =>
-                {
-                    options.UseDefaultAction = true;
-                    options.UseDefaultSubject = true;
-                })
-                .AddDefaultEventData()
+            services.AddAuditLogging()
+                .AddDefaultHttpEventData()
                 .AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
                 .AddDefaultAuditSink();

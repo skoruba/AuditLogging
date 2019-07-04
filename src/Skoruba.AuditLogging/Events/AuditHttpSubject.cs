@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.Constants;
 
 namespace Skoruba.AuditLogging.Events
 {
     public class AuditHttpSubject : IAuditSubject
     {
-        public AuditHttpSubject(IHttpContextAccessor accessor)
+        public AuditHttpSubject(IHttpContextAccessor accessor, AuditHttpSubjectOptions options)
         {
-            SubjectIdentifier = accessor.HttpContext.User.FindFirst(ClaimsConsts.Sub)?.Value;
-            SubjectName = accessor.HttpContext.User.FindFirst(ClaimsConsts.Name)?.Value;
+            SubjectIdentifier = accessor.HttpContext.User.FindFirst(options.SubjectIdentifierClaim)?.Value;
+            SubjectName = accessor.HttpContext.User.FindFirst(options.SubjectNameClaim)?.Value;
             SubjectAdditionalData = new
             {
                 RemoteIpAddress = accessor.HttpContext.Connection?.RemoteIpAddress?.ToString(),
