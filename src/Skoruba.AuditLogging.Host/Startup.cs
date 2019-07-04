@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Skoruba.AuditLogging.Constants;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.Events;
 using Skoruba.AuditLogging.Host.Consts;
@@ -42,8 +43,20 @@ namespace Skoruba.AuditLogging.Host
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddAuditLogging()
-                .AddDefaultHttpEventData()
+            services.AddAuditLogging(options =>
+                {
+                    options.UseDefaultAction = true;
+                    options.UseDefaultAction = true;
+                })
+                .AddDefaultHttpEventData(subjectOptions =>
+                    {
+                        subjectOptions.SubjectIdentifierClaim = ClaimsConsts.Sub;
+                        subjectOptions.SubjectNameClaim = ClaimsConsts.Name;
+                    },
+                    actionOptions =>
+                    {
+                        actionOptions.IncludeFormVariables = true;
+                    })
                 .AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
                 .AddDefaultAuditSink();
