@@ -5,14 +5,16 @@
 
 # How to install
 
-```
+```ps
 dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta4-update3
 ```
 
 # How to use
 
 ### Register default services
-```
+
+
+```csharp
 services.AddAuditLogging(options =>
                 {
                     options.UseDefaultAction = true;
@@ -34,7 +36,7 @@ services.AddAuditLogging(options =>
 
 ### Usage in code
 
-```
+```csharp
             // Create fake product
             var productDto = new ProductDto
             {
@@ -70,7 +72,7 @@ services.AddAuditLogging(options =>
 ```
 
 **ProductAddedEvent.cs**
-```
+```csharp
 public class ProductAddedEvent : AuditEvent
     {
         public ProductDto ProductDto { get; set; }  
@@ -80,7 +82,7 @@ public class ProductAddedEvent : AuditEvent
 ## Setup default IAuditSubject and IAuditAction
 
 **Default action implementation:**
-```
+```csharp
 public class AuditHttpAction : IAuditAction
     {
         public AuditHttpAction(IHttpContextAccessor accessor, AuditHttpActionOptions options)
@@ -100,7 +102,7 @@ public class AuditHttpAction : IAuditAction
 
 **Default subject implementation:**
 
-```
+```csharp
 public class AuditHttpSubject : IAuditSubject
     {
         public AuditHttpSubject(IHttpContextAccessor accessor, AuditHttpSubjectOptions options)
