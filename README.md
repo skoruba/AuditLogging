@@ -6,7 +6,7 @@
 # How to install
 
 ```
-dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta3
+dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta4-update3
 ```
 
 # How to use
@@ -16,9 +16,17 @@ dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta3
 services.AddAuditLogging(options =>
                 {
                     options.UseDefaultAction = true;
-                    options.UseDefaultSubject = true;
+                    options.UseDefaultAction = true;
                 })
-                .AddDefaultEventData()
+                .AddDefaultHttpEventData(subjectOptions =>
+                    {
+                        subjectOptions.SubjectIdentifierClaim = ClaimsConsts.Sub;
+                        subjectOptions.SubjectNameClaim = ClaimsConsts.Name;
+                    },
+                    actionOptions =>
+                    {
+                        actionOptions.IncludeFormVariables = true;
+                    })
                 .AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
                 .AddDefaultAuditSink();
@@ -75,14 +83,14 @@ public class ProductAddedEvent : AuditEvent
 ```
 public class AuditHttpAction : IAuditAction
     {
-        public AuditHttpAction(IHttpContextAccessor accessor)
+        public AuditHttpAction(IHttpContextAccessor accessor, AuditHttpActionOptions options)
         {
             Action = new
             {
                 TraceIdentifier = accessor.HttpContext.TraceIdentifier,
                 RequestUrl = accessor.HttpContext.Request.GetDisplayUrl(),
                 HttpMethod = accessor.HttpContext.Request.Method,
-                FormVariables = HttpContextHelpers.GetFormVariables(accessor.HttpContext)
+                FormVariables = options.IncludeFormVariables ? HttpContextHelpers.GetFormVariables(accessor.HttpContext) : null
             };
         }
 
@@ -95,14 +103,15 @@ public class AuditHttpAction : IAuditAction
 ```
 public class AuditHttpSubject : IAuditSubject
     {
-        public AuditHttpSubject(IHttpContextAccessor accessor)
+        public AuditHttpSubject(IHttpContextAccessor accessor, AuditHttpSubjectOptions options)
         {
-            SubjectIdentifier = accessor.HttpContext.User.FindFirst(ClaimsConsts.Sub)?.Value;
-            SubjectName = accessor.HttpContext.User.FindFirst(ClaimsConsts.Name)?.Value;
+            SubjectIdentifier = accessor.HttpContext.User.FindFirst(options.SubjectIdentifierClaim)?.Value;
+            SubjectName = accessor.HttpContext.User.FindFirst(options.SubjectNameClaim)?.Value;
             SubjectAdditionalData = new
             {
                 RemoteIpAddress = accessor.HttpContext.Connection?.RemoteIpAddress?.ToString(),
-                Claims = accessor.HttpContext.User.Claims?.ToDictionary(t => t.Type, t => t.Value)
+                LocalIpAddress = accessor.HttpContext.Connection?.LocalIpAddress?.ToString(),
+                Claims = accessor.HttpContext.User.Claims?.Select(x=> new { x.Type, x.Value })
             };
         }
 
