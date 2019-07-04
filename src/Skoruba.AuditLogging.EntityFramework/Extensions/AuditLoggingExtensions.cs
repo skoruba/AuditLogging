@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
+using Skoruba.AuditLogging.EntityFramework.DbContexts.Default;
 using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Repositories;
 using Skoruba.AuditLogging.EntityFramework.Services;
@@ -71,7 +72,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <returns></returns>
         public static IAuditLoggingBuilder AddDefaultStore(this IAuditLoggingBuilder builder, Action<DbContextOptionsBuilder> dbContextOptions)
         {
-            builder.AddStore<AuditLoggingDbContext<AuditLog>, AuditLog, AuditLoggingRepository<AuditLoggingDbContext<AuditLog>, AuditLog>>(dbContextOptions);
+            builder.AddStore<DefaultAuditLoggingDbContext, AuditLog, AuditLoggingRepository<DefaultAuditLoggingDbContext, AuditLog>>(dbContextOptions);
 
             return builder;
         }

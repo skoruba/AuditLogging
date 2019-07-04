@@ -55,6 +55,7 @@ namespace Skoruba.AuditLogging.Host.Controllers
             await _auditEventLogger.LogEventAsync(productGetMachineEvent, options =>
                 {
                     options.UseDefaultSubject = false;
+                    options.UseDefaultAction = false;
                 });
 
             await _auditEventLogger.LogEventAsync(productGetUserEvent);

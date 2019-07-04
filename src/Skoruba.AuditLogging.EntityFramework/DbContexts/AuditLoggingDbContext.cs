@@ -4,14 +4,13 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 
 namespace Skoruba.AuditLogging.EntityFramework.DbContexts
 {
-    public class AuditLoggingDbContext<TAuditLog> : DbContext, IAuditLoggingDbContext<TAuditLog> 
+    public abstract class AuditLoggingDbContext<TAuditLog> : DbContext, IAuditLoggingDbContext<TAuditLog> 
         where TAuditLog : AuditLog
 
     {
-        public AuditLoggingDbContext(DbContextOptions<AuditLoggingDbContext<TAuditLog>> dbContextOptions)
-            : base(dbContextOptions)
+        protected AuditLoggingDbContext(DbContextOptions options)
+            : base(options)
         {
-
         }
 
         public DbSet<TAuditLog> AuditLog { get; set; }
