@@ -56,14 +56,18 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// Add audit default data - subject and action
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="options"></param>
+        /// <param name="subjectOptions"></param>
+        /// <param name="actionOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddDefaultHttpEventData(this IAuditLoggingBuilder builder, Action<AuditHttpSubjectOptions> options = default)
+        public static IAuditLoggingBuilder AddDefaultHttpEventData(this IAuditLoggingBuilder builder, Action<AuditHttpSubjectOptions> subjectOptions = default, Action<AuditHttpActionOptions> actionOptions = default)
         {
             var auditHttpSubjectOptions = new AuditHttpSubjectOptions();
-            options?.Invoke(auditHttpSubjectOptions);
-
+            subjectOptions?.Invoke(auditHttpSubjectOptions);
             builder.Services.AddSingleton(auditHttpSubjectOptions);
+
+            var auditHttpActionOptions = new AuditHttpActionOptions();
+            actionOptions?.Invoke(auditHttpActionOptions);
+            builder.Services.AddSingleton(auditHttpActionOptions);
 
             builder.Services.AddTransient<IAuditSubject, AuditHttpSubject>();
             builder.Services.AddTransient<IAuditAction, AuditHttpAction>();
