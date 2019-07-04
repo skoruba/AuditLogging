@@ -34,6 +34,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             var auditLoggerOptions = new TAuditLoggerOptions();
             loggerOptions?.Invoke(auditLoggerOptions);
 
+            builder.Services.AddSingleton(auditLoggerOptions);
             builder.Services.AddTransient<IAuditEventLogger, AuditEventLogger>();
 
             return builder;

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Skoruba.AuditLogging.Constants;
 
@@ -13,7 +14,8 @@ namespace Skoruba.AuditLogging.Events
             SubjectAdditionalData = new
             {
                 RemoteIpAddress = accessor.HttpContext.Connection?.RemoteIpAddress?.ToString(),
-                Claims = accessor.HttpContext.User.Claims?.ToDictionary(t => t.Type, t => t.Value)
+                LocalIpAddress = accessor.HttpContext.Connection?.LocalIpAddress?.ToString(),
+                Claims = accessor.HttpContext.User.Claims?.Select(x=> new { x.Type, x.Value })
             };
         }
 

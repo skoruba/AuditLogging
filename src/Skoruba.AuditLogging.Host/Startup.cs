@@ -59,7 +59,9 @@ namespace Skoruba.AuditLogging.Host
                         options.Identity = new ClaimsIdentity(new[]
                         {
                         new Claim(AuthenticationConsts.ClaimName, "bob"),
-                        new Claim(AuthenticationConsts.ClaimSub, Guid.NewGuid().ToString())
+                        new Claim(AuthenticationConsts.ClaimSub, Guid.NewGuid().ToString()),
+                        new Claim(AuthenticationConsts.ClaimRole, Guid.NewGuid().ToString()),
+                        new Claim(AuthenticationConsts.ClaimRole, Guid.NewGuid().ToString())
                     }, AuthenticationConsts.AuthenticationType, AuthenticationConsts.ClaimName, AuthenticationConsts.ClaimRole);
                     });
 
