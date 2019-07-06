@@ -17,7 +17,7 @@ dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta4-up
 ```csharp
 services.AddAuditLogging(options =>
                 {
-                    options.UseDefaultAction = true;
+                    options.UseDefaultSubject = true;
                     options.UseDefaultAction = true;
                 })
                 .AddDefaultHttpEventData(subjectOptions =>
