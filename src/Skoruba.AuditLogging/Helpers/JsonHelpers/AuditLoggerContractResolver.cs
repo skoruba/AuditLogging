@@ -21,6 +21,7 @@ namespace Skoruba.AuditLogging.Helpers.JsonHelpers
                     || member.Name == nameof(AuditEvent.SubjectAdditionalData)
                     || member.Name == nameof(AuditEvent.Action)
                     || member.Name == nameof(AuditEvent.SubjectIdentifier)
+                    || member.Name == nameof(AuditEvent.SubjectType)
                     || member.Name == nameof(AuditEvent.SubjectName)))
             {
                 property.ShouldSerialize = i => false;
