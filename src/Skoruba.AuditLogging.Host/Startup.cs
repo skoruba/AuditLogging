@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Skoruba.AuditLogging.Constants;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
-using Skoruba.AuditLogging.Events;
 using Skoruba.AuditLogging.Host.Consts;
 using Skoruba.AuditLogging.Host.Helpers.Authentication;
 
@@ -46,7 +45,7 @@ namespace Skoruba.AuditLogging.Host
             services.AddAuditLogging(options =>
                 {
                     options.UseDefaultAction = true;
-                    options.UseDefaultAction = true;
+                    options.UseDefaultSubject = true;
                 })
                 .AddDefaultHttpEventData(subjectOptions =>
                     {

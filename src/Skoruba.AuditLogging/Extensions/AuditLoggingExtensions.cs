@@ -1,14 +1,11 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Skoruba.AuditLogging.Configuration;
-using Skoruba.AuditLogging.EntityFramework.DbContexts;
-using Skoruba.AuditLogging.EntityFramework.DbContexts.Default;
-using Skoruba.AuditLogging.EntityFramework.Entities;
-using Skoruba.AuditLogging.EntityFramework.Repositories;
-using Skoruba.AuditLogging.EntityFramework.Services;
 using Skoruba.AuditLogging.Events;
+using Skoruba.AuditLogging.Events.Default;
+using Skoruba.AuditLogging.Events.Http;
+using Skoruba.AuditLogging.Extensions;
 using Skoruba.AuditLogging.Services;
 
 namespace Skoruba.AuditLogging.EntityFramework.Extensions
@@ -69,51 +66,79 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             actionOptions?.Invoke(auditHttpActionOptions);
             builder.Services.AddSingleton(auditHttpActionOptions);
 
-            builder.Services.AddTransient<IAuditSubject, AuditHttpSubject>();
-            builder.Services.AddTransient<IAuditAction, AuditHttpAction>();
+            builder.Services.AddTransient<IAuditSubject, HttpAuditSubject>();
+            builder.Services.AddTransient<IAuditAction, HttpAuditAction>();
 
             return builder;
         }
 
         /// <summary>
-        /// Add default DbContext and Repository
+        /// Use IAuditSubject with pre-defined static data. This might be useful for service which is running as machine app.
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="dbContextOptions"></param>
+        /// <param name="defaultAuditSubject"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddDefaultStore(this IAuditLoggingBuilder builder, Action<DbContextOptionsBuilder> dbContextOptions)
+        public static IAuditLoggingBuilder AddStaticEventSubject(this IAuditLoggingBuilder builder, Action<DefaultAuditSubject> defaultAuditSubject)
         {
-            builder.AddStore<DefaultAuditLoggingDbContext, AuditLog, AuditLoggingRepository<DefaultAuditLoggingDbContext, AuditLog>>(dbContextOptions);
+            var auditSubject = new DefaultAuditSubject();
+            defaultAuditSubject?.Invoke(auditSubject);
+            builder.Services.AddSingleton(auditSubject);
+
+            builder.Services.AddSingleton<IAuditSubject, DefaultAuditSubject>();
 
             return builder;
         }
 
         /// <summary>
-        /// Add store with DbContext and Repository
+        /// Use default implementation of IAuditSubject.
         /// </summary>
-        /// <typeparam name="TDbContext"></typeparam>
-        /// <typeparam name="TAuditLoggingRepository"></typeparam>
-        /// <typeparam name="TAuditLog"></typeparam>
         /// <param name="builder"></param>
-        /// <param name="dbContextOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddStore<TDbContext, TAuditLog, TAuditLoggingRepository>(this IAuditLoggingBuilder builder, Action<DbContextOptionsBuilder> dbContextOptions)
-            where TDbContext : DbContext, IAuditLoggingDbContext<TAuditLog> where TAuditLoggingRepository : class, IAuditLoggingRepository<TAuditLog> where TAuditLog : AuditLog
+        public static IAuditLoggingBuilder AddDefaultEventSubject(this IAuditLoggingBuilder builder)
         {
-            builder.Services.AddDbContext<TDbContext>(dbContextOptions);
-            builder.Services.AddTransient<IAuditLoggingRepository<TAuditLog>, TAuditLoggingRepository>();
+            builder.Services.AddTransient<IAuditSubject, DefaultAuditSubject>();
 
             return builder;
         }
 
         /// <summary>
-        /// Add default database audit sink
+        /// Use default implementation of IAuditAction.
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddDefaultAuditSink(this IAuditLoggingBuilder builder)
+        public static IAuditLoggingBuilder AddDefaultEventAction(this IAuditLoggingBuilder builder)
         {
-            builder.AddAuditSinks<DatabaseAuditEventLoggerSink<AuditLog>>();
+            builder.Services.AddTransient<IAuditAction, DefaultAuditAction>();
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Use default implementation of IAuditSubject and IAuditAction.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public static IAuditLoggingBuilder AddDefaultEventData(this IAuditLoggingBuilder builder)
+        {
+            builder.Services.AddTransient<IAuditSubject, DefaultAuditSubject>();
+            builder.Services.AddTransient<IAuditAction, DefaultAuditAction>();
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Add own implementation for event data
+        /// </summary>
+        /// <typeparam name="TEventSubject"></typeparam>
+        /// <typeparam name="TEventAction"></typeparam>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public static IAuditLoggingBuilder AddEventData<TEventSubject, TEventAction>(this IAuditLoggingBuilder builder)
+        where TEventSubject : class, IAuditSubject
+        where TEventAction : class, IAuditAction
+        {
+            builder.Services.AddTransient<IAuditSubject, TEventSubject>();
+            builder.Services.AddTransient<IAuditAction, TEventAction>();
 
             return builder;
         }

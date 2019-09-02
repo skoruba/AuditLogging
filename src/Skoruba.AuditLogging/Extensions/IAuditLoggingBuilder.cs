@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Skoruba.AuditLogging.EntityFramework.Extensions
+namespace Skoruba.AuditLogging.Extensions
 {
     public interface IAuditLoggingBuilder
     {

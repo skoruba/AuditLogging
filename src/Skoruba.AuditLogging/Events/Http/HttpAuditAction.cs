@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.Helpers.HttpContextHelpers;
 
-namespace Skoruba.AuditLogging.Events
+namespace Skoruba.AuditLogging.Events.Http
 {
-    public class AuditHttpAction : IAuditAction
+    public class HttpAuditAction : IAuditAction
     {
-        public AuditHttpAction(IHttpContextAccessor accessor, AuditHttpActionOptions options)
+        public HttpAuditAction(IHttpContextAccessor accessor, AuditHttpActionOptions options)
         {
             Action = new
             {

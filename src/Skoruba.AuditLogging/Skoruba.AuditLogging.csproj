@@ -34,6 +34,9 @@
       <Reference Include="Microsoft.AspNetCore.Http.Features">
         <HintPath>..\..\..\..\Users\jaskoruba\.nuget\packages\microsoft.aspnetcore.http.features\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
       </Reference>
+      <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+        <HintPath>..\..\..\..\Users\jaskoruba\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.Extensions.Primitives">
         <HintPath>..\..\..\..\Users\jaskoruba\.nuget\packages\microsoft.extensions.primitives\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
       </Reference>

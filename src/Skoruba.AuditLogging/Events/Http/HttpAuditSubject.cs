@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.Constants;
 
-namespace Skoruba.AuditLogging.Events
+namespace Skoruba.AuditLogging.Events.Http
 {
-    public class AuditHttpSubject : IAuditSubject
+    public class HttpAuditSubject : IAuditSubject
     {
-        public AuditHttpSubject(IHttpContextAccessor accessor, AuditHttpSubjectOptions options)
+        public HttpAuditSubject(IHttpContextAccessor accessor, AuditHttpSubjectOptions options)
         {
             SubjectIdentifier = accessor.HttpContext.User.FindFirst(options.SubjectIdentifierClaim)?.Value;
             SubjectName = accessor.HttpContext.User.FindFirst(options.SubjectNameClaim)?.Value;
