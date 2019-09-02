@@ -82,9 +82,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         {
             var auditSubject = new DefaultAuditSubject();
             defaultAuditSubject?.Invoke(auditSubject);
-            builder.Services.AddSingleton(auditSubject);
-
-            builder.Services.AddSingleton<IAuditSubject, DefaultAuditSubject>();
+            builder.Services.AddSingleton<IAuditSubject>(auditSubject);
 
             return builder;
         }
