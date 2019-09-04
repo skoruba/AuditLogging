@@ -34,7 +34,7 @@ services.AddAuditLogging(options =>
 ```
 
 ## Setup for machine application (e.g. background jobs):
-```
+```csharp
 services.AddAuditLogging(options =>
                 {
                     options.UseDefaultAction = false;
@@ -73,12 +73,12 @@ services.AddAuditLogging(options =>
 ```
 
 ### Logging for user action
-```
+```csharp
  await _auditEventLogger.LogEventAsync(productGetUserEvent);
 ```
 
 ### Logging for machine action
-```
+```csharp
 var productGetMachineEvent = new ProductGetEvent
             {
                 Category = nameof(ProductGetEvent),
@@ -160,7 +160,7 @@ public class AuditHttpAction : IAuditAction
 
 - By default it is used database sink via EntityFramework Core, for registration this default sink - it is required to register this method:
 
-```
+```csharp
 .AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
                     optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
                 .AddDefaultAuditSink()
@@ -175,7 +175,7 @@ public class AuditHttpAction : IAuditAction
 - `AuditLoggingRepository` - Repository for access to database, which contains GRUD method for access to `AuditLog` table.
 
 - In the background it is used method called: `AddStore` - which is possible to use instead of AddDefaultStore and specify individual implementation of these objects above
-```
+```csharp
 builder.AddStore<DefaultAuditLoggingDbContext, AuditLog, AuditLoggingRepository<DefaultAuditLoggingDbContext, AuditLog>>(dbContextOptions);
 ```
 
@@ -183,7 +183,7 @@ builder.AddStore<DefaultAuditLoggingDbContext, AuditLog, AuditLoggingRepository<
 
 - This method is for registration of default Sink:
 
-```
+```csharp
 builder.AddAuditSinks<DatabaseAuditEventLoggerSink<AuditLog>>();
 ```
 
@@ -191,7 +191,7 @@ builder.AddAuditSinks<DatabaseAuditEventLoggerSink<AuditLog>>();
 
 - It is necessary to implement interface `IAuditEventLoggerSink` and one single method called:
 
-```
+```csharp
 Task PersistAsync(AuditEvent auditEvent);
 ```
 
