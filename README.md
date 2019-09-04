@@ -9,10 +9,9 @@
 dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta4-update6
 ```
 
-# How to use
+# How to use it
 
-### Register default services
-
+## Setup for web application and auditing of users:
 
 ```csharp
 services.AddAuditLogging(options =>
@@ -34,6 +33,26 @@ services.AddAuditLogging(options =>
                 .AddDefaultAuditSink();
 ```
 
+## Setup for machine application (e.g. background jobs):
+```
+services.AddAuditLogging(options =>
+                {
+                    options.UseDefaultAction = false;
+                })
+                .AddStaticEventSubject(subject =>
+                {
+                    subject.SubjectType = AuditSubjectTypes.Machine;
+                    subject.SubjectIdentifier = EmailServiceConsts.Name;
+                    subject.SubjectName = Environment.MachineName;
+                })
+                .AddDefaultEventAction()
+                .AddStore<ApplicationDbContext, AuditLog, AuditLoggingRepository<ApplicationDbContext, AuditLog>>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("ApplicationDbConnection"),
+                        optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
+                .AddDefaultAuditSink();
+```
+
+
 ### Usage in code
 
 ```csharp
@@ -50,9 +69,17 @@ services.AddAuditLogging(options =>
             {
                 Category = nameof(ProductGetEvent),
                 Product = productDto
-            };
+            };           
+```
 
-            var productGetMachineEvent = new ProductGetEvent
+### Logging for user action
+```
+ await _auditEventLogger.LogEventAsync(productGetUserEvent);
+```
+
+### Logging for machine action
+```
+var productGetMachineEvent = new ProductGetEvent
             {
                 Category = nameof(ProductGetEvent),
                 Product = productDto,
@@ -67,8 +94,6 @@ services.AddAuditLogging(options =>
                     options.UseDefaultSubject = false;
                     options.UseDefaultAction = false;
                 });
-
-            await _auditEventLogger.LogEventAsync(productGetUserEvent);
 ```
 
 **ProductAddedEvent.cs**
@@ -81,26 +106,8 @@ public class ProductAddedEvent : AuditEvent
 
 ## Setup default IAuditSubject and IAuditAction
 
-**Default action implementation:**
-```csharp
-public class AuditHttpAction : IAuditAction
-    {
-        public AuditHttpAction(IHttpContextAccessor accessor, AuditHttpActionOptions options)
-        {
-            Action = new
-            {
-                TraceIdentifier = accessor.HttpContext.TraceIdentifier,
-                RequestUrl = accessor.HttpContext.Request.GetDisplayUrl(),
-                HttpMethod = accessor.HttpContext.Request.Method,
-                FormVariables = options.IncludeFormVariables ? HttpContextHelpers.GetFormVariables(accessor.HttpContext) : null
-            };
-        }
-
-        public object Action { get; set; }
-    }
-```
-
-**Default subject implementation:**
+## `IAuditSubject`
+**Default subject implementation for HTTP calls:**
 
 ```csharp
 public class AuditHttpSubject : IAuditSubject
@@ -126,6 +133,69 @@ public class AuditHttpSubject : IAuditSubject
         public string SubjectIdentifier { get; set; }
     }
 ```
+
+## `IAuditAction`
+**Default action implementation for HTTP calls:**
+```csharp
+public class AuditHttpAction : IAuditAction
+    {
+        public AuditHttpAction(IHttpContextAccessor accessor, AuditHttpActionOptions options)
+        {
+            Action = new
+            {
+                TraceIdentifier = accessor.HttpContext.TraceIdentifier,
+                RequestUrl = accessor.HttpContext.Request.GetDisplayUrl(),
+                HttpMethod = accessor.HttpContext.Request.Method,
+                FormVariables = options.IncludeFormVariables ? HttpContextHelpers.GetFormVariables(accessor.HttpContext) : null
+            };
+        }
+
+        public object Action { get; set; }
+    }
+```
+
+## Sinks
+
+### Database sink via EntityFramework Core - `DatabaseAuditEventLoggerSink`
+
+- By default it is used database sink via EntityFramework Core, for registration this default sink - it is required to register this method:
+
+```
+.AddDefaultStore(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
+                    optionsSql => optionsSql.MigrationsAssembly(migrationsAssembly)))
+                .AddDefaultAuditSink()
+```
+
+### AddDefaultStore:
+
+- This method register default implementation of:
+
+- `DefaultAuditLoggingDbContext` - Default DbContext for access to database
+- `AuditLog` - Entity for logging all audit stuff
+- `AuditLoggingRepository` - Repository for access to database, which contains GRUD method for access to `AuditLog` table.
+
+- In the background it is used method called: `AddStore` - which is possible to use instead of AddDefaultStore and specify individual implementation of these objects above
+```
+builder.AddStore<DefaultAuditLoggingDbContext, AuditLog, AuditLoggingRepository<DefaultAuditLoggingDbContext, AuditLog>>(dbContextOptions);
+```
+
+### AddDefaultAuditSink:
+
+- This method is for registration of default Sink:
+
+```
+builder.AddAuditSinks<DatabaseAuditEventLoggerSink<AuditLog>>();
+```
+
+# How to use own Sink
+
+- It is necessary to implement interface `IAuditEventLoggerSink` and one single method called:
+
+```
+Task PersistAsync(AuditEvent auditEvent);
+```
+
+- Then you can register your new sink via method - `.AddAuditSinks<>` - which has overload for maximum 8 sinks.
 
 # Example
 - Please, check out the project `Skoruba.AuditLogging.Host` - which contains example with Asp.Net Core API - with fake authentication for testing purpose only. 😊
