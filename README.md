@@ -203,7 +203,7 @@ Task PersistAsync(AuditEvent auditEvent);
 # Licence
 This repository is licensed under the terms of the MIT license.
 
-**NOTE:** This repository uses the source code from https://github.com/IdentityServer/IdentityServer4 which is under the terms of the **Apache License 2.0**.
+**NOTE:** This repository uses the source code from https://github.com/IdentityServer/IdentityServer4 which is under the terms of the **[Apache License 2.0](https://github.com/IdentityServer/IdentityServer4/blob/master/LICENSE)**.
 
 # Acknowledgements
 
