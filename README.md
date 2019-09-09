@@ -67,7 +67,6 @@ services.AddAuditLogging(options =>
             // Log this action
             var productGetUserEvent = new ProductGetEvent
             {
-                Category = nameof(ProductGetEvent),
                 Product = productDto
             };           
 ```
@@ -81,7 +80,6 @@ services.AddAuditLogging(options =>
 ```csharp
 var productGetMachineEvent = new ProductGetEvent
             {
-                Category = nameof(ProductGetEvent),
                 Product = productDto,
                 SubjectType = AuditSubjectTypes.Machine,
                 SubjectName = Environment.MachineName,
@@ -155,6 +153,13 @@ public class AuditHttpAction : IAuditAction
 ```
 
 ## Sinks
+
+### Database migrations
+
+```ps
+dotnet ef migrations add DbInit -c DefaultAuditLoggingDbContext -o Data/Migrations
+dotnet ef database update -c DefaultAuditLoggingDbContext
+```
 
 ### Database sink via EntityFramework Core - `DatabaseAuditEventLoggerSink`
 
