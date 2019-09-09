@@ -53,7 +53,7 @@ services.AddAuditLogging(options =>
 ```
 
 
-### Usage in code
+## Usage in code
 
 ```csharp
             // Create fake product
@@ -101,6 +101,33 @@ public class ProductAddedEvent : AuditEvent
         public ProductDto ProductDto { get; set; }  
     }
 ```
+
+## AuditEvent - base event for logger
+
+| Property              | Description                                             |
+|-----------------------|---------------------------------------------------------|
+| Event                 | Name of event                                           |
+| Category              | Event category                                          |
+| SubjectIdentifier     | Identifier of caller which is responsible for the event |
+| SubjectName           | Name of caller which is responsible for the event       |
+| SubjectType           | Subject Type (eg. User/Machine)                         |
+| SubjectAdditionalData | Additional information for subject                      |
+| Action                | Information about request/action                        |
+
+## AuditLog - database table
+
+| Property              | Description                                             |
+|-----------------------|---------------------------------------------------------|
+| Id                    | Database unique identifier for event                    |
+| Event                 | Name of event                                           |
+| Category              | Event category                                          |
+| SubjectIdentifier     | Identifier of caller which is responsible for the event |
+| SubjectName           | Name of caller which is responsible for the event       |
+| SubjectType           | Subject Type (eg. User/Machine)                         |
+| SubjectAdditionalData | Additional information for subject                      |
+| Action                | Information about request/action                        |
+| Data                  | Data which are serialized into JSON format              |
+| Created               | Date and time for creating of the event                 |
 
 ## Setup default IAuditSubject and IAuditAction
 
@@ -203,7 +230,53 @@ Task PersistAsync(AuditEvent auditEvent);
 - Then you can register your new sink via method - `.AddAuditSinks<>` - which has overload for maximum 8 sinks.
 
 # Example
+
+## Source code
 - Please, check out the project `Skoruba.AuditLogging.Host` - which contains example with Asp.Net Core API - with fake authentication for testing purpose only. 😊
+
+## Output in JSON format
+
+```json
+{
+      "Id":1,
+      "Event":"ProductGetEvent",
+      "Category":"Web",
+      "SubjectIdentifier":"30256997-4096-428d-bfc7-8593d263b8eb",
+      "SubjectName":"bob",
+      "SubjectType":"User",
+      "SubjectAdditionalData":{
+         "RemoteIpAddress":"::1",
+         "LocalIpAddress":"::1",
+         "Claims":[
+            {
+               "Type":"name",
+               "Value":"bob"
+            },
+            {
+               "Type":"sub",
+               "Value":"30256997-4096-428d-bfc7-8593d263b8eb"
+            },
+            {
+               "Type":"role",
+               "Value":"31fad6ad-9df3-4e7f-b73f-68dc7d2636c6"
+            }
+         ]
+      },
+      "Action":{
+         "TraceIdentifier":"80000025-0000-ff00-b63f-84710c7967bb",
+         "RequestUrl":"https://localhost:44319/api/audit",
+         "HttpMethod":"GET"
+      },
+      "Data":{
+         "Product":{
+            "Id":"7d7138b6-e5c3-4548-814c-9119ddb1f785",
+            "Name":"c9bc91fe-79f2-439b-8bfa-be3f71947b63",
+            "Category":"b3f2f9d2-67d5-4b52-8156-04232adf0c4b"
+         }
+      },
+      "Created":"2019-09-09T12:03:12.7729634"
+   }
+```
 
 # Licence
 This repository is licensed under the terms of the MIT license.
