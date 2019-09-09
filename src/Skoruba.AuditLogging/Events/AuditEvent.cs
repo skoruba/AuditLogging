@@ -5,6 +5,16 @@
     /// </summary>
     public abstract class AuditEvent
     {
+        protected AuditEvent()
+        {
+            Event = GetType().Name;
+        }
+
+        /// <summary>
+        /// Event name
+        /// </summary>
+        public string Event { get; set; }
+
         /// <summary>
         /// Event category
         /// </summary>

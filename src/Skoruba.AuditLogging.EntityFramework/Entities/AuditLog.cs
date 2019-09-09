@@ -10,10 +10,15 @@ namespace Skoruba.AuditLogging.EntityFramework.Entities
         public int Id { get; set; }
 
         /// <summary>
+        /// Event name
+        /// </summary>
+        public string Event { get; set; }
+
+        /// <summary>
         /// Event category
         /// </summary>
         public string Category { get; set; }
-
+        
         /// <summary>
         /// Subject Identifier - who is responsible for current action
         /// </summary>
