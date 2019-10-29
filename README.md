@@ -6,7 +6,7 @@
 # How to install
 
 ```ps
-dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta5
+dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta6
 ```
 
 # How to use it
