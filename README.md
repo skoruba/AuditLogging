@@ -38,6 +38,7 @@ services.AddAuditLogging(options =>
 services.AddAuditLogging(options =>
                 {
                     options.UseDefaultAction = false;
+                    options.Source = "Web"
                 })
                 .AddStaticEventSubject(subject =>
                 {
@@ -107,6 +108,7 @@ public class ProductAddedEvent : AuditEvent
 | Property              | Description                                             |
 |-----------------------|---------------------------------------------------------|
 | Event                 | Name of event                                           |
+| Source                | Source of logging events                                |
 | Category              | Event category                                          |
 | SubjectIdentifier     | Identifier of caller which is responsible for the event |
 | SubjectName           | Name of caller which is responsible for the event       |
@@ -120,6 +122,7 @@ public class ProductAddedEvent : AuditEvent
 |-----------------------|---------------------------------------------------------|
 | Id                    | Database unique identifier for event                    |
 | Event                 | Name of event                                           |
+| Source                | Source of logging events                                |
 | Category              | Event category                                          |
 | SubjectIdentifier     | Identifier of caller which is responsible for the event |
 | SubjectName           | Name of caller which is responsible for the event       |
