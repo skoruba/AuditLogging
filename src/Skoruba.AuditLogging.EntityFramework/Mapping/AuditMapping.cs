@@ -12,6 +12,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Mapping
             var auditLog = new TAuditLog
             {
                 Event = auditEvent.Event,
+                Source = auditEvent.Source,
                 SubjectIdentifier = auditEvent.SubjectIdentifier,
                 SubjectName = auditEvent.SubjectName,
                 SubjectType = auditEvent.SubjectType,

@@ -1,4 +1,6 @@
-﻿namespace Skoruba.AuditLogging.Events
+﻿using Skoruba.AuditLogging.Helpers.Common;
+
+namespace Skoruba.AuditLogging.Events
 {
     /// <summary>
     /// Default audit event for logging
@@ -7,13 +9,18 @@
     {
         protected AuditEvent()
         {
-            Event = GetType().Name;
+            Event = GetType().GetNameWithoutGenericParams();
         }
 
         /// <summary>
         /// Event name
         /// </summary>
         public string Event { get; set; }
+
+        /// <summary>
+        /// Source of logging events
+        /// </summary>
+        public string Source { get; set; }
 
         /// <summary>
         /// Event category

@@ -46,6 +46,7 @@ namespace Skoruba.AuditLogging.Host
                 {
                     options.UseDefaultAction = true;
                     options.UseDefaultSubject = true;
+                    options.Source = typeof(Program).Assembly.GetName().Name;
                 })
                 .AddDefaultHttpEventData(subjectOptions =>
                     {

@@ -60,6 +60,14 @@ namespace Skoruba.AuditLogging.Host.Controllers
 
             await _auditEventLogger.LogEventAsync(productGetUserEvent);
 
+            var genericProductEvent = new GenericProductEvent<int, string, ProductDto>
+            {
+                Category = nameof(ProductGetEvent),
+                Product = productDto
+            };
+
+            await _auditEventLogger.LogEventAsync(genericProductEvent);
+
             return Ok(productDto);
         }
     }

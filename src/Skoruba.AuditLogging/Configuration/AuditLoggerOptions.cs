@@ -2,6 +2,8 @@
 {
     public class AuditLoggerOptions
     {
+        public string Source { get; set; }
+
         /// <summary>
         /// Use default subject from IAuditSubject
         /// </summary>

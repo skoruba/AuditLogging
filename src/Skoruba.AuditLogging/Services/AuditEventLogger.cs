@@ -65,6 +65,18 @@ namespace Skoruba.AuditLogging.Services
             {
                 PrepareDefaultAction(auditEvent);
             }
+
+            PrepareDefaultConfiguration(auditEvent, loggerOptions);
+        }
+
+        /// <summary>
+        /// Prepare default configuration
+        /// </summary>
+        /// <param name="auditEvent"></param>
+        /// <param name="loggerOptions"></param>
+        private void PrepareDefaultConfiguration(AuditEvent auditEvent, AuditLoggerOptions loggerOptions)
+        {
+            auditEvent.Source = loggerOptions.Source;
         }
 
         /// <summary>

@@ -15,6 +15,11 @@ namespace Skoruba.AuditLogging.EntityFramework.Entities
         public string Event { get; set; }
 
         /// <summary>
+        /// Source of logging events
+        /// </summary>
+        public string Source { get; set; }
+
+        /// <summary>
         /// Event category
         /// </summary>
         public string Category { get; set; }
