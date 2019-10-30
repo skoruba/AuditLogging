@@ -18,7 +18,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             DbContext = dbContext;
         }
 
-        public async Task<PagedList<TAuditLog>> GetAsync(int page = 1, int pageSize = 10)
+        public virtual async Task<PagedList<TAuditLog>> GetAsync(int page = 1, int pageSize = 10)
         {
             var pagedList = new PagedList<TAuditLog>();
 
@@ -34,7 +34,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             return pagedList;
         }
 
-        public async Task<PagedList<TAuditLog>> GetAsync(string subjectIdentifier, string subjectName, string category, int page = 1, int pageSize = 10)
+        public virtual async Task<PagedList<TAuditLog>> GetAsync(string subjectIdentifier, string subjectName, string category, int page = 1, int pageSize = 10)
         {
             var pagedList = new PagedList<TAuditLog>();
 
@@ -53,7 +53,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             return pagedList;
         }
 
-        public async Task SaveAsync(TAuditLog auditLog)
+        public virtual async Task SaveAsync(TAuditLog auditLog)
         {
             await DbContext.AuditLog.AddAsync(auditLog);
             await DbContext.SaveChangesAsync();

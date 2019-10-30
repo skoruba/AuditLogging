@@ -18,7 +18,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Services
             _auditLoggingRepository = auditLoggingRepository;
         }
 
-        public async Task PersistAsync(AuditEvent auditEvent)
+        public virtual async Task PersistAsync(AuditEvent auditEvent)
         {
             if (auditEvent == null) throw new ArgumentNullException(nameof(auditEvent));
 
