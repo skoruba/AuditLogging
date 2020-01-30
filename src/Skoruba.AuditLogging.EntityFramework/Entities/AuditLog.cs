@@ -7,7 +7,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Entities
         /// <summary>
         /// Unique identifier for event
         /// </summary>
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Event name
