@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>1.0.0-beta6-update1</Version>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Version>1.0.0-beta8</Version>
         <Description>Simple audit logging for .NET Core with EntityFramework Core support</Description>
         <PackageProjectUrl></PackageProjectUrl>
         <RepositoryUrl>https://github.com/skoruba/AuditLogging</RepositoryUrl>
@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     </ItemGroup>
 
     <ItemGroup>
