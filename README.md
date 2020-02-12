@@ -3,10 +3,12 @@
 # 🕊️ Skoruba.AuditLogging
 > Simple audit logging for .NET Core with EntityFramework Core support
 
+**This project is ported to .NET Core 3.1.** 🚀
+
 # How to install
 
 ```ps
-dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta6
+dotnet add package Skoruba.AuditLogging.EntityFramework --version 1.0.0-beta8
 ```
 
 # How to use it
