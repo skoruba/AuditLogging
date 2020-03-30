@@ -55,7 +55,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
 
         public virtual async Task SaveAsync(TAuditLog auditLog)
         {
-            await DbContext.AuditLog.AddAsync(auditLog);
+            DbContext.AuditLog.Add(auditLog);
             await DbContext.SaveChangesAsync();
         }
     }
