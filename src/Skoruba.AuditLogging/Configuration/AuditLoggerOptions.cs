@@ -2,6 +2,12 @@
 {
     public class AuditLoggerOptions
     {
+
+        public bool Enabled { get; set; } = true;
+
+        /// <summary>
+        /// Name of source
+        /// </summary>
         public string Source { get; set; }
 
         /// <summary>

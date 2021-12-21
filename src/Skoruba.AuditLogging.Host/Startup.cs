@@ -45,6 +45,7 @@ namespace Skoruba.AuditLogging.Host
 
             services.AddAuditLogging(options =>
                 {
+                    options.Enabled = true;
                     options.UseDefaultAction = true;
                     options.UseDefaultSubject = true;
                     options.Source = typeof(Program).Assembly.GetName().Name;

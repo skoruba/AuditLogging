@@ -108,6 +108,11 @@ namespace Skoruba.AuditLogging.Services
         /// <returns></returns>
         public virtual async Task LogEventAsync(AuditEvent auditEvent, Action<AuditLoggerOptions> loggerOptions = default)
         {
+            if (!_auditLoggerOptions.Enabled)
+            {
+                return;
+            }
+
             await PrepareEventAsync(auditEvent, loggerOptions);
 
             foreach (var sink in Sinks)
