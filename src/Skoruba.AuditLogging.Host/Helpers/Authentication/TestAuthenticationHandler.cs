@@ -8,12 +8,12 @@ using Skoruba.AuditLogging.Host.Consts;
 
 namespace Skoruba.AuditLogging.Host.Helpers.Authentication
 {
-    public class TestAuthenticationHandler : AuthenticationHandler<TestAuthenticationOptions>
+    public class TestAuthenticationHandler(
+        IOptionsMonitor<TestAuthenticationOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder)
+        : AuthenticationHandler<TestAuthenticationOptions>(options, logger, encoder)
     {
-        public TestAuthenticationHandler(IOptionsMonitor<TestAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
-        {
-        }
-
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             var authenticationTicket = new AuthenticationTicket(new ClaimsPrincipal(Options.Identity),
