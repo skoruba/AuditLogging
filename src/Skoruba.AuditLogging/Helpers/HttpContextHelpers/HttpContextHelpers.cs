@@ -38,7 +38,7 @@ namespace Skoruba.AuditLogging.Helpers.HttpContextHelpers
             var dict = new Dictionary<string, string>();
             foreach (var k in col)
             {
-                dict.Add(k.Key, string.Join(", ", k.Value));
+                dict.Add(k.Key, string.Join(", ", [.. k.Value]));
             }
             return dict;
         }
