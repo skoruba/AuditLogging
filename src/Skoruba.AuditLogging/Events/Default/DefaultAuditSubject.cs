@@ -2,9 +2,9 @@
 {
     public class DefaultAuditSubject : IAuditSubject
     {
-        public string SubjectIdentifier { get; set; }
-        public string SubjectName { get; set; }
-        public string SubjectType { get; set; }
-        public object SubjectAdditionalData { get; set; }
+        public string SubjectIdentifier { get; set; } = default!;
+        public string SubjectName { get; set; } = default!;
+        public string SubjectType { get; set; } = default!;
+        public object SubjectAdditionalData { get; set; } = default!;
     }
 }

@@ -5,6 +5,6 @@ namespace Skoruba.AuditLogging.Host.Helpers.Authentication
 {
     public class TestAuthenticationOptions : AuthenticationSchemeOptions
     {
-        public virtual ClaimsIdentity Identity { get; set; }
+        public virtual ClaimsIdentity Identity { get; set; } = default!;
     }
 }

@@ -9,13 +9,13 @@ namespace Skoruba.AuditLogging.Events.Http
     {
         public HttpAuditSubject(IHttpContextAccessor accessor, AuditHttpSubjectOptions options)
         {
-            SubjectIdentifier = accessor.HttpContext.User.FindFirst(options.SubjectIdentifierClaim)?.Value;
-            SubjectName = accessor.HttpContext.User.FindFirst(options.SubjectNameClaim)?.Value;
+            SubjectIdentifier = accessor.HttpContext?.User?.FindFirst(options.SubjectIdentifierClaim)?.Value!;
+            SubjectName = accessor.HttpContext?.User?.FindFirst(options.SubjectNameClaim)?.Value!;
             SubjectAdditionalData = new
             {
-                RemoteIpAddress = accessor.HttpContext.Connection?.RemoteIpAddress?.ToString(),
-                LocalIpAddress = accessor.HttpContext.Connection?.LocalIpAddress?.ToString(),
-                Claims = accessor.HttpContext.User.Claims?.Select(x => new { x.Type, x.Value })
+                RemoteIpAddress = accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString(),
+                LocalIpAddress = accessor.HttpContext?.Connection?.LocalIpAddress?.ToString(),
+                Claims = accessor.HttpContext?.User.Claims?.Select(x => new { x.Type, x.Value })
             };
         }
 

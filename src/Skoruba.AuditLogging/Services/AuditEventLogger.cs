@@ -12,20 +12,12 @@ using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.Services
 {
-    public class AuditEventLogger : IAuditEventLogger
+    public class AuditEventLogger(IEnumerable<IAuditEventLoggerSink> sinks, IAuditSubject auditSubject, IAuditAction auditAction, AuditLoggerOptions auditLoggerOptions) : IAuditEventLogger
     {
-        protected readonly IEnumerable<IAuditEventLoggerSink> Sinks;
-        protected readonly IAuditSubject AuditSubject;
-        protected readonly IAuditAction AuditAction;
-        private readonly AuditLoggerOptions _auditLoggerOptions;
-
-        public AuditEventLogger(IEnumerable<IAuditEventLoggerSink> sinks, IAuditSubject auditSubject, IAuditAction auditAction, AuditLoggerOptions auditLoggerOptions)
-        {
-            Sinks = sinks;
-            AuditSubject = auditSubject;
-            AuditAction = auditAction;
-            _auditLoggerOptions = auditLoggerOptions;
-        }
+        protected readonly IEnumerable<IAuditEventLoggerSink> Sinks = sinks;
+        protected readonly IAuditSubject AuditSubject = auditSubject;
+        protected readonly IAuditAction AuditAction = auditAction;
+        private readonly AuditLoggerOptions _auditLoggerOptions = auditLoggerOptions;
 
         /// <summary>
         /// Prepare default values for an event
@@ -33,7 +25,7 @@ namespace Skoruba.AuditLogging.Services
         /// <param name="auditEvent"></param>
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        protected virtual Task PrepareEventAsync(AuditEvent auditEvent, Action<AuditLoggerOptions> loggerOptions)
+        protected virtual Task PrepareEventAsync(AuditEvent auditEvent, Action<AuditLoggerOptions>? loggerOptions)
         {
             if (loggerOptions == default)
             {
@@ -106,7 +98,7 @@ namespace Skoruba.AuditLogging.Services
         /// <param name="auditEvent"></param>
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        public virtual async Task LogEventAsync(AuditEvent auditEvent, Action<AuditLoggerOptions> loggerOptions = default)
+        public virtual async Task LogEventAsync(AuditEvent auditEvent, Action<AuditLoggerOptions>? loggerOptions = default)
         {
             if (!_auditLoggerOptions.Enabled)
             {

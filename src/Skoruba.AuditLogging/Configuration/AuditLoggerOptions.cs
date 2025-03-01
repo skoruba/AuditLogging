@@ -8,7 +8,7 @@
         /// <summary>
         /// Name of source
         /// </summary>
-        public string Source { get; set; }
+        public string? Source { get; set; }
 
         /// <summary>
         /// Use default subject from IAuditSubject

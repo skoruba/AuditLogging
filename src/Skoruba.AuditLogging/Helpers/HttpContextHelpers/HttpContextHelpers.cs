@@ -10,7 +10,7 @@ namespace Skoruba.AuditLogging.Helpers.HttpContextHelpers
 {
     public class HttpContextHelpers
     {
-        public static IDictionary<string, string> GetFormVariables(HttpContext context)
+        public static IDictionary<string, string>? GetFormVariables(HttpContext context)
         {
             if (!context.Request.HasFormContentType)
             {
@@ -29,7 +29,7 @@ namespace Skoruba.AuditLogging.Helpers.HttpContextHelpers
             return ToDictionary(formCollection);
         }
 
-        public static IDictionary<string, string> ToDictionary(IEnumerable<KeyValuePair<string, StringValues>> col)
+        public static IDictionary<string, string>? ToDictionary(IEnumerable<KeyValuePair<string, StringValues>> col)
         {
             if (col == null)
             {

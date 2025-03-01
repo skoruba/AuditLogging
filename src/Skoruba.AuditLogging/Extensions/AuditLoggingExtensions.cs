@@ -23,7 +23,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <param name="service"></param>
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddAuditLogging<TAuditLoggerOptions>(this IServiceCollection service, Action<TAuditLoggerOptions> loggerOptions = default)
+        public static IAuditLoggingBuilder AddAuditLogging<TAuditLoggerOptions>(this IServiceCollection service, Action<TAuditLoggerOptions>? loggerOptions = default)
         where TAuditLoggerOptions : AuditLoggerOptions, new()
         {
             var builder = service.AddAuditLoggingBuilder();
@@ -44,7 +44,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
         public static IAuditLoggingBuilder AddAuditLogging(this IServiceCollection service,
-            Action<AuditLoggerOptions> loggerOptions = default)
+            Action<AuditLoggerOptions>? loggerOptions = default)
         {
             return service.AddAuditLogging<AuditLoggerOptions>(loggerOptions);
         }
@@ -56,7 +56,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         /// <param name="subjectOptions"></param>
         /// <param name="actionOptions"></param>
         /// <returns></returns>
-        public static IAuditLoggingBuilder AddDefaultHttpEventData(this IAuditLoggingBuilder builder, Action<AuditHttpSubjectOptions> subjectOptions = default, Action<AuditHttpActionOptions> actionOptions = default)
+        public static IAuditLoggingBuilder AddDefaultHttpEventData(this IAuditLoggingBuilder builder, Action<AuditHttpSubjectOptions>? subjectOptions = default, Action<AuditHttpActionOptions>? actionOptions = default)
         {
             var auditHttpSubjectOptions = new AuditHttpSubjectOptions();
             subjectOptions?.Invoke(auditHttpSubjectOptions);
@@ -144,10 +144,10 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
         public static IAuditLoggingBuilder AddAuditSinks<T1>(this IAuditLoggingBuilder builder)
             where T1 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
-            });
+            ]);
 
             return builder;
         }
@@ -156,11 +156,11 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T1 : class, IAuditEventLoggerSink
             where T2 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>()
-            });
+            ]);
 
             return builder;
         }
@@ -170,12 +170,12 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T2 : class, IAuditEventLoggerSink
             where T3 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>()
-            });
+            ]);
 
             return builder;
         }
@@ -186,13 +186,13 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T3 : class, IAuditEventLoggerSink
             where T4 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>()
-            });
+            ]);
 
             return builder;
         }
@@ -204,14 +204,14 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T4 : class, IAuditEventLoggerSink
             where T5 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>()
-            });
+            ]);
 
             return builder;
         }
@@ -224,15 +224,15 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T5 : class, IAuditEventLoggerSink
             where T6 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T4>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T6>()
-            });
+            ]);
 
             return builder;
         }
@@ -246,8 +246,8 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T6 : class, IAuditEventLoggerSink
             where T7 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
@@ -255,7 +255,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T5>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T6>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T7>()
-            });
+            ]);
 
             return builder;
         }
@@ -270,8 +270,8 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
             where T7 : class, IAuditEventLoggerSink
             where T8 : class, IAuditEventLoggerSink
         {
-            builder.Services.TryAddEnumerable(new ServiceDescriptor[]
-            {
+            builder.Services.TryAddEnumerable(
+            [
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T1>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T2>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T3>(),
@@ -280,7 +280,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Extensions
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T6>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T7>(),
                 ServiceDescriptor.Transient<IAuditEventLoggerSink, T8>()
-            });
+            ]);
 
             return builder;
         }

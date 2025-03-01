@@ -5,6 +5,6 @@ namespace Skoruba.AuditLogging.Host.Events
 {
     public class ProductGetEvent : AuditEvent
     {
-        public ProductDto Product { get; set; }
+        public ProductDto Product { get; set; } = default!;
     }
 }

@@ -3,13 +3,9 @@
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<TargetFramework>net9.0</TargetFramework>
-		<!--<Nullable>enable</Nullable>-->
+		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Authors>Jan Škoruba</Authors>
-	</PropertyGroup>
-	<PropertyGroup>
-		<NoWarn>1591</NoWarn>
-		<!-- Remove this to turn on warnings for missing XML Comments -->
 	</PropertyGroup>
 </Project>

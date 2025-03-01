@@ -14,7 +14,7 @@ namespace Skoruba.AuditLogging.Services
         /// <param name="auditEvent">The specific audit event</param>
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        Task LogEventAsync(AuditEvent auditEvent, Action<TAuditLoggerOptions> loggerOptions = default);
+        Task LogEventAsync(AuditEvent auditEvent, Action<TAuditLoggerOptions>? loggerOptions = default);
     }
 
     public interface IAuditEventLogger : IAuditEventLogger<AuditLoggerOptions>
