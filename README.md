@@ -3,7 +3,7 @@
 # 🕊️ Skoruba.AuditLogging
 > Simple audit logging for .NET Core with EntityFramework Core support
 
-**This project is ported to .NET 8.** 🚀
+**This project is ported to .NET 9.** 🚀
 
 # How to install
 
