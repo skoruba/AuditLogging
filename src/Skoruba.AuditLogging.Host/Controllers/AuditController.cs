@@ -13,7 +13,9 @@ namespace Skoruba.AuditLogging.Host.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuditController(IAuditEventLogger auditEventLogger, ILogger<AuditController> logger) : ControllerBase
+    public class AuditController(
+        IAuditEventLogger auditEventLogger,
+        ILogger<AuditController> logger) : ControllerBase
     {
         private readonly IAuditEventLogger _auditEventLogger = auditEventLogger;
         private readonly ILogger<AuditController> _logger = logger;

@@ -25,7 +25,6 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             pagedList.PageSize = pageSize;
             pagedList.TotalCount = await DbContext.AuditLog.CountAsync();
 
-
             return pagedList;
         }
 
@@ -43,7 +42,6 @@ namespace Skoruba.AuditLogging.EntityFramework.Repositories
             pagedList.Data.AddRange(auditLogs);
             pagedList.PageSize = pageSize;
             pagedList.TotalCount = await DbContext.AuditLog.CountAsync();
-
 
             return pagedList;
         }
