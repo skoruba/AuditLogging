@@ -24,9 +24,9 @@ namespace Skoruba.AuditLogging.Host.Controllers
             // Create fake product
             var productDto = new ProductDto
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = Guid.NewGuid().ToString(),
-                Category = Guid.NewGuid().ToString()
+                Id = Guid.CreateVersion7().ToString(),
+                Name = Guid.CreateVersion7().ToString(),
+                Category = Guid.CreateVersion7().ToString()
             };
 
             // Log this action
