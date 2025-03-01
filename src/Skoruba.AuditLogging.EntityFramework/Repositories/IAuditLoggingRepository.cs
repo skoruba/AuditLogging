@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Skoruba.AuditLogging.EntityFramework.Entities;
+﻿using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Helpers.Common;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.EntityFramework.Repositories
 {

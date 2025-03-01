@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.Constants;
+using System.Linq;
 
 namespace Skoruba.AuditLogging.Events.Http
 {
@@ -15,7 +15,7 @@ namespace Skoruba.AuditLogging.Events.Http
             {
                 RemoteIpAddress = accessor.HttpContext.Connection?.RemoteIpAddress?.ToString(),
                 LocalIpAddress = accessor.HttpContext.Connection?.LocalIpAddress?.ToString(),
-                Claims = accessor.HttpContext.User.Claims?.Select(x=> new { x.Type, x.Value })
+                Claims = accessor.HttpContext.User.Claims?.Select(x => new { x.Type, x.Value })
             };
         }
 

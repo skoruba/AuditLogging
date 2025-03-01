@@ -23,7 +23,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Entities
         /// Event category
         /// </summary>
         public string Category { get; set; }
-        
+
         /// <summary>
         /// Subject Identifier - who is responsible for current action
         /// </summary>

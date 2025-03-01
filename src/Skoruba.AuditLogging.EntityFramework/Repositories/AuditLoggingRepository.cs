@@ -1,22 +1,17 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.AuditLogging.EntityFramework.Helpers;
 using Skoruba.AuditLogging.EntityFramework.Helpers.Common;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.EntityFramework.Repositories
 {
-    public class AuditLoggingRepository<TDbContext, TAuditLog> : IAuditLoggingRepository<TAuditLog>
-    where TDbContext : IAuditLoggingDbContext<TAuditLog> 
+    public class AuditLoggingRepository<TDbContext, TAuditLog>(TDbContext dbContext) : IAuditLoggingRepository<TAuditLog>
+    where TDbContext : IAuditLoggingDbContext<TAuditLog>
     where TAuditLog : AuditLog
     {
-        protected TDbContext DbContext;
-
-        public AuditLoggingRepository(TDbContext dbContext)
-        {
-            DbContext = dbContext;
-        }
+        protected TDbContext DbContext = dbContext;
 
         public virtual async Task<PagedList<TAuditLog>> GetAsync(int page = 1, int pageSize = 10)
         {

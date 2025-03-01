@@ -1,10 +1,6 @@
-﻿using System;
-using System.Reflection;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +10,9 @@ using Skoruba.AuditLogging.Constants;
 using Skoruba.AuditLogging.EntityFramework.Extensions;
 using Skoruba.AuditLogging.Host.Consts;
 using Skoruba.AuditLogging.Host.Helpers.Authentication;
+using System;
+using System.Reflection;
+using System.Security.Claims;
 
 namespace Skoruba.AuditLogging.Host
 {
@@ -67,13 +66,13 @@ namespace Skoruba.AuditLogging.Host
                 .AddScheme<TestAuthenticationOptions, TestAuthenticationHandler>(AuthenticationConsts.Scheme,
                     options =>
                     {
-                        options.Identity = new ClaimsIdentity(new[]
-                        {
-                        new Claim(AuthenticationConsts.ClaimName, "bob"),
-                        new Claim(AuthenticationConsts.ClaimSub, Guid.NewGuid().ToString()),
-                        new Claim(AuthenticationConsts.ClaimRole, Guid.NewGuid().ToString()),
-                        new Claim(AuthenticationConsts.ClaimRole, Guid.NewGuid().ToString())
-                    }, AuthenticationConsts.AuthenticationType, AuthenticationConsts.ClaimName, AuthenticationConsts.ClaimRole);
+                        options.Identity = new ClaimsIdentity(
+                        [
+                            new Claim(AuthenticationConsts.ClaimName, "bob"),
+                            new Claim(AuthenticationConsts.ClaimSub, Guid.NewGuid().ToString()),
+                            new Claim(AuthenticationConsts.ClaimRole, Guid.NewGuid().ToString()),
+                            new Claim(AuthenticationConsts.ClaimRole, Guid.NewGuid().ToString())
+                        ], AuthenticationConsts.AuthenticationType, AuthenticationConsts.ClaimName, AuthenticationConsts.ClaimRole);
                     });
 
             services.AddControllersWithViews();

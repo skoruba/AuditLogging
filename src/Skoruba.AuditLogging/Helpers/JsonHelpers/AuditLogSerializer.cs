@@ -15,14 +15,14 @@ namespace Skoruba.AuditLogging.Helpers.JsonHelpers
     /// </summary>
     public static class AuditLogSerializer
     {
-        public static readonly JsonSerializerSettings DefaultAuditJsonSettings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings DefaultAuditJsonSettings = new()
         {
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatHandling = DateFormatHandling.IsoDateFormat,
             Formatting = Formatting.Indented
         };
 
-        public static readonly JsonSerializerSettings BaseAuditEventJsonSettings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings BaseAuditEventJsonSettings = new()
         {
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatHandling = DateFormatHandling.IsoDateFormat,

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Skoruba.AuditLogging.Configuration;
+﻿using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.Events;
+using System;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.Services
 {
-    public interface IAuditEventLogger<out TAuditLoggerOptions> 
+    public interface IAuditEventLogger<out TAuditLoggerOptions>
         where TAuditLoggerOptions : AuditLoggerOptions
     {
         /// <summary>

@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Skoruba.AuditLogging.EntityFramework.Entities;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.EntityFramework.DbContexts
 {

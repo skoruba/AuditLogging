@@ -3,12 +3,7 @@ using Skoruba.AuditLogging.EntityFramework.Entities;
 
 namespace Skoruba.AuditLogging.EntityFramework.DbContexts.Default
 {
-    public class DefaultAuditLoggingDbContext : AuditLoggingDbContext<AuditLog>
+    public class DefaultAuditLoggingDbContext(DbContextOptions<DefaultAuditLoggingDbContext> dbContextOptions) : AuditLoggingDbContext<AuditLog>(dbContextOptions)
     {
-        public DefaultAuditLoggingDbContext(DbContextOptions<DefaultAuditLoggingDbContext> dbContextOptions) 
-            : base(dbContextOptions)
-        {
-
-        }
     }
 }

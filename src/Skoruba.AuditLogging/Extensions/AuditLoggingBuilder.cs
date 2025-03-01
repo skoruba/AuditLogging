@@ -1,15 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Skoruba.AuditLogging.EntityFramework.Extensions;
 
 namespace Skoruba.AuditLogging.Extensions
 {
-    public class AuditLoggingBuilder : IAuditLoggingBuilder
+    public class AuditLoggingBuilder(IServiceCollection services) : IAuditLoggingBuilder
     {
-        public AuditLoggingBuilder(IServiceCollection services)
-        {
-            Services = services;
-        }
-
-        public IServiceCollection Services { get; }
+        public IServiceCollection Services { get; } = services;
     }
 }

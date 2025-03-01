@@ -1,18 +1,13 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Skoruba.AuditLogging.EntityFramework.Entities;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.EntityFramework.DbContexts
 {
-    public abstract class AuditLoggingDbContext<TAuditLog> : DbContext, IAuditLoggingDbContext<TAuditLog> 
+    public abstract class AuditLoggingDbContext<TAuditLog>(DbContextOptions options) : DbContext(options), IAuditLoggingDbContext<TAuditLog>
         where TAuditLog : AuditLog
 
     {
-        protected AuditLoggingDbContext(DbContextOptions options)
-            : base(options)
-        {
-        }
-
         public DbSet<TAuditLog> AuditLog { get; set; }
 
         public Task<int> SaveChangesAsync()

@@ -1,28 +1,22 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Skoruba.AuditLogging.Constants;
 using Skoruba.AuditLogging.Host.Dtos;
 using Skoruba.AuditLogging.Host.Events;
 using Skoruba.AuditLogging.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.Host.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuditController : ControllerBase
+    public class AuditController(IAuditEventLogger auditEventLogger, ILogger<AuditController> logger) : ControllerBase
     {
-        private readonly IAuditEventLogger _auditEventLogger;
-        private readonly ILogger<AuditController> _logger;
-
-        public AuditController(IAuditEventLogger auditEventLogger, ILogger<AuditController> logger)
-        {
-            _auditEventLogger = auditEventLogger;
-            _logger = logger;
-        }
+        private readonly IAuditEventLogger _auditEventLogger = auditEventLogger;
+        private readonly ILogger<AuditController> _logger = logger;
 
         [HttpGet]
         public async Task<ActionResult> Get()

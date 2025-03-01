@@ -4,11 +4,11 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4/src/Services/Default/DefaultEventService.cs
 // Modified by Jan Škoruba
 
+using Skoruba.AuditLogging.Configuration;
+using Skoruba.AuditLogging.Events;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Skoruba.AuditLogging.Configuration;
-using Skoruba.AuditLogging.Events;
 
 namespace Skoruba.AuditLogging.Services
 {
