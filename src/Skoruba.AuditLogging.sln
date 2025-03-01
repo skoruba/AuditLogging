@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.35821.62 d17.14
+VisualStudioVersion = 17.14.35821.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skoruba.AuditLogging", "Skoruba.AuditLogging\Skoruba.AuditLogging.csproj", "{FF6E5161-2B2F-45A7-BC99-059F4481FFF7}"
 EndProject
@@ -12,12 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "host", "host", "{8DEBFB85-B120-4788-99A3-AA8E600D100C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skoruba.AuditLogging.Host", "Skoruba.AuditLogging.Host\Skoruba.AuditLogging.Host.csproj", "{0FCC8D17-202D-4D5B-A7B3-B6F2332EA24B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
-	ProjectSection(SolutionItems) = preProject
-		..\Directory.Build.props = ..\Directory.Build.props
-		..\Directory.Packages.props = ..\Directory.Packages.props
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
