@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Skoruba.AuditLogging.Configuration;
+﻿using Skoruba.AuditLogging.Configuration;
 using Skoruba.AuditLogging.Events;
+using System;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.Services
 {
-    public interface IAuditEventLogger<out TAuditLoggerOptions> 
+    public interface IAuditEventLogger<out TAuditLoggerOptions>
         where TAuditLoggerOptions : AuditLoggerOptions
     {
         /// <summary>
@@ -14,7 +14,7 @@ namespace Skoruba.AuditLogging.Services
         /// <param name="auditEvent">The specific audit event</param>
         /// <param name="loggerOptions"></param>
         /// <returns></returns>
-        Task LogEventAsync(AuditEvent auditEvent, Action<TAuditLoggerOptions> loggerOptions = default);
+        Task LogEventAsync(AuditEvent auditEvent, Action<TAuditLoggerOptions>? loggerOptions = default);
     }
 
     public interface IAuditEventLogger : IAuditEventLogger<AuditLoggerOptions>

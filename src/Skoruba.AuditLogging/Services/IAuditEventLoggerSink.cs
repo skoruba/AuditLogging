@@ -4,8 +4,8 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4/src/Services/IEventSink.cs
 // Modified by Jan Škoruba
 
-using System.Threading.Tasks;
 using Skoruba.AuditLogging.Events;
+using System.Threading.Tasks;
 
 namespace Skoruba.AuditLogging.Services
 {

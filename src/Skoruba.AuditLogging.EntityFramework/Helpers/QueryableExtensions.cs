@@ -27,10 +27,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Helpers
         {
             const int defaultPageNumber = 1;
 
-            if (query == null)
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
+            ArgumentNullException.ThrowIfNull(query);
 
             // Check if the page number is greater then zero - otherwise use default page number
             if (page <= 0)

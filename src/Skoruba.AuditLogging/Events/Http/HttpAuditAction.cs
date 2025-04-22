@@ -11,10 +11,10 @@ namespace Skoruba.AuditLogging.Events.Http
         {
             Action = new
             {
-                TraceIdentifier = accessor.HttpContext.TraceIdentifier,
-                RequestUrl = accessor.HttpContext.Request.GetDisplayUrl(),
-                HttpMethod = accessor.HttpContext.Request.Method,
-                FormVariables = options.IncludeFormVariables ? HttpContextHelpers.GetFormVariables(accessor.HttpContext) : null
+                accessor.HttpContext?.TraceIdentifier,
+                RequestUrl = accessor.HttpContext?.Request.GetDisplayUrl(),
+                HttpMethod = accessor.HttpContext?.Request.Method,
+                FormVariables = options.IncludeFormVariables && accessor.HttpContext != null ? HttpContextHelpers.GetFormVariables(accessor.HttpContext) : null
             };
         }
 

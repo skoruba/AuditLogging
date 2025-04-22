@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Skoruba.AuditLogging.Constants
+﻿namespace Skoruba.AuditLogging.Constants
 {
     public class ClaimsConsts
     {

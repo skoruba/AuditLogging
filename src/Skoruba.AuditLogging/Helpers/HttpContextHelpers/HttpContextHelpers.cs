@@ -1,16 +1,16 @@
 ﻿// Original file: https://github.com/thepirat000/Audit.NET/blob/9ee49b5295119ef7cc6648977f90c46ce39cc698/src/Audit.WebApi/AuditApiHelper.cs
 // Modified: Jan Škoruba
 
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Skoruba.AuditLogging.Helpers.HttpContextHelpers
 {
     public class HttpContextHelpers
     {
-        public static IDictionary<string, string> GetFormVariables(HttpContext context)
+        public static IDictionary<string, string>? GetFormVariables(HttpContext context)
         {
             if (!context.Request.HasFormContentType)
             {
@@ -29,16 +29,16 @@ namespace Skoruba.AuditLogging.Helpers.HttpContextHelpers
             return ToDictionary(formCollection);
         }
 
-        public static IDictionary<string, string> ToDictionary(IEnumerable<KeyValuePair<string, StringValues>> col)
+        public static IDictionary<string, string>? ToDictionary(IEnumerable<KeyValuePair<string, StringValues>> col)
         {
             if (col == null)
             {
                 return null;
             }
-            IDictionary<string, string> dict = new Dictionary<string, string>();
+            var dict = new Dictionary<string, string>();
             foreach (var k in col)
             {
-                dict.Add(k.Key, string.Join(", ", k.Value));
+                dict.Add(k.Key, string.Join(", ", [.. k.Value]));
             }
             return dict;
         }

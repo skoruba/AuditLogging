@@ -1,0 +1,11 @@
+<Project>
+	<ItemGroup>
+		<PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.2" />
+		<PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+		<PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+</Project>

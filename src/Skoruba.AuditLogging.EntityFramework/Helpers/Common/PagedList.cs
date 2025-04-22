@@ -6,7 +6,7 @@ namespace Skoruba.AuditLogging.EntityFramework.Helpers.Common
     {
         public PagedList()
         {
-            Data = new List<T>();
+            Data = [];
         }
 
         public List<T> Data { get; }

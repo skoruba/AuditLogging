@@ -2,6 +2,6 @@
 {
     public class DefaultAuditAction : IAuditAction
     {
-        public object Action { get; set; }
+        public object Action { get; set; } = default!;
     }
 }
