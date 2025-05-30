@@ -8,8 +8,7 @@
         <RepositoryUrl>https://github.com/skoruba/AuditLogging</RepositoryUrl>
         <PackageIconUrl>https://raw.githubusercontent.com/skoruba/IdentityServer4.Admin/master/docs/Images/Skoruba.IdentityServer4.Admin-Logo-Nuget.png</PackageIconUrl>
         <PackageTags>.Net Core, AuditLogging, EntityFramework Core</PackageTags>
-        <PackageLicenseExpression></PackageLicenseExpression>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Jan Škoruba</Authors>
     </PropertyGroup>
 
@@ -19,13 +18,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Skoruba.AuditLogging\Skoruba.AuditLogging.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\..\LICENSE">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
     </ItemGroup>
 
 </Project>
