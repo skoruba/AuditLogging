@@ -11,9 +11,11 @@
         <PackageLicenseExpression></PackageLicenseExpression>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <Authors>Jan Škoruba, Abdelilah El mansouri</Authors> 
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
-    
+
     <ItemGroup>
       <None Include="..\..\LICENSE">
         <Pack>True</Pack>

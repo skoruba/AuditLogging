@@ -10,7 +10,9 @@
         <PackageTags>.Net Core, AuditLogging, EntityFramework Core</PackageTags>
         <PackageLicenseExpression></PackageLicenseExpression>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Authors>Jan Škoruba</Authors>
+        <Authors>Jan Škoruba, Abdelilah El mansouri</Authors>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
