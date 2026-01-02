@@ -1,6 +1,6 @@
-![Logo](docs/Images/Skoruba-ReadMe.png) 
+![Logo](docs/Images/logo.png) 
 
-# 🕊️ Skoruba.AuditLogging
+# TechAdvisor.AuditLogging
 > Simple audit logging for .NET Core with EntityFramework Core support
 
 **This project is ported to .NET 8.** 🚀
@@ -8,7 +8,7 @@
 # How to install
 
 ```ps
-dotnet add package Skoruba.AuditLogging.EntityFramework --version 2.0.0
+dotnet add package TechAdvisor.AuditLogging.EntityFramework --version 2.0.0
 ```
 
 # How to use it
@@ -238,7 +238,7 @@ Task PersistAsync(AuditEvent auditEvent);
 # Example
 
 ## Source code
-- Please, check out the project `Skoruba.AuditLogging.Host` - which contains example with Asp.Net Core API - with fake authentication for testing purpose only. 😊
+- Please, check out the project `TechAdvisor.AuditLogging.Host` - which contains example with Asp.Net Core API - with fake authentication for testing purpose only. 😊
 
 ## Output in JSON format
 

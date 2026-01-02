@@ -328,6 +328,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-/src/Skoruba.AuditLogging.Host/Data/Migrations/
-/src/Skoruba.AuditLogging.Host/appsettings.Development.json
-/src/Skoruba.AuditLogging.Host/appsettings.Production.json
+/src/TechAdvisor.AuditLogging.Host/Data/Migrations/
+/src/TechAdvisor.AuditLogging.Host/appsettings.Development.json
+/src/TechAdvisor.AuditLogging.Host/appsettings.Production.json
