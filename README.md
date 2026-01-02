@@ -3,12 +3,10 @@
 # TechAdvisor.AuditLogging
 > Simple audit logging for .NET Core with EntityFramework Core support
 
-**This project is ported to .NET 8.** 🚀
-
 # How to install
 
 ```ps
-dotnet add package TechAdvisor.AuditLogging.EntityFramework --version 2.0.0
+dotnet add package TechAdvisor.AuditLogging.EntityFramework --version 8.0.0
 ```
 
 # How to use it
